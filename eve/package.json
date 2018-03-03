@@ -1,0 +1,23 @@
+{
+  "name": "eve",
+  "version": "1.0.0",
+  "description": "This is the mobile ui of depoma project. In other words, it's a subproject of depoma.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brainysoon/depoma.git"
+  },
+  "keywords": [
+    "eve",
+    "depoma"
+  ],
+  "author": "brainysoon <brainysoon@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/brainysoon/depoma/issues"
+  },
+  "homepage": "https://github.com/brainysoon/depoma#readme"
+}
