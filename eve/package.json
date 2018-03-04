@@ -4,7 +4,7 @@
   "description": "This is the mobile ui of depoma project. In other words, it's a subproject of depoma.",
   "main": "index.js",
   "scripts": {
-    "start": "gulp start",
+    "start": "gulp start & webpack -d --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,12 +29,15 @@
     "browser-sync": "^2.23.6",
     "gulp": "^3.9.1",
     "run-sequence": "^2.2.1",
-    "webpack": "^4.0.1"
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10"
   },
   "dependencies": {
+    "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2"
   }
