@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/brainysoon/depoma/issues"
   },
-  "homepage": "https://github.com/brainysoon/depoma#readme"
+  "homepage": "https://github.com/brainysoon/depoma#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }
