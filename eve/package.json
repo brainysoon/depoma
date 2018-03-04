@@ -33,12 +33,13 @@
     "webpack-cli": "^2.0.10"
   },
   "dependencies": {
+    "history": "^4.7.2",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
-    "react-router-redux": "^4.0.8",
+    "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2"
   }
 }
