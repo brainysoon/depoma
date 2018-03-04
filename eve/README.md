@@ -7,3 +7,11 @@ Until now, I will use the react to build the mobile ui, but that not the final s
 2. webpack
 3. mocha
 4. npm
+
+# eve pattern
+
+This is some of the patter that be used in this project.
+
+1. dir: singular words
+2. file: singular and complex words
+3. test: test file in `__test__` dir and end with Test
