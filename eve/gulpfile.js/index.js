@@ -1,6 +1,12 @@
-var gulp=require('gulp');
+const gulp = require('gulp');
+const requireDir = require('require-dir');
+const runSequence = require('run-sequence');
 
-gulp.task('default',()=>{
+requireDir('./task');
 
-  console.log('Hello gulp!');
-})
+const START_TASK_NAME = 'start';
+
+gulp.task(START_TASK_NAME, () => {
+
+    runSequence('build', 'server');
+});
