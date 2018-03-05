@@ -15,3 +15,4 @@ This is some of the patter that be used in this project.
 1. dir: singular words
 2. file: singular and complex words
 3. test: test file in `__test__` dir and end with Test
+4. do not using ()=> in UT test it will lead can not access to mocha context.
