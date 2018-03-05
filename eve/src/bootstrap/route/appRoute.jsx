@@ -1,7 +1,7 @@
 import {Route} from 'react-router';
 import React from 'react';
 
-import Home from '../../launchHome/index';
+import Home from 'src/launchHome/index';
 
 const appRoute = (
 
