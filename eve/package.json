@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp start & webpack -d --watch",
-    "mocha": "mocha"
+    "unit": "mocha src/**/__test__/*Test.js"
   },
   "repository": {
     "type": "git",
