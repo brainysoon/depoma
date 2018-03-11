@@ -9,12 +9,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'npm install'
+        sh '''cd eve
+npm install'''
       }
     }
     stage('Test') {
       steps {
-        sh 'npm run mocha'
+        sh 'npm run unit'
       }
     }
     stage('Deploy') {
