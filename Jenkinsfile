@@ -15,12 +15,14 @@ npm install'''
     }
     stage('Test') {
       steps {
-        sh 'npm run unit'
+        sh '''cd eve
+npm run unit'''
       }
     }
     stage('Deploy') {
       steps {
-        sh 'npm run start'
+        sh '''cd eve
+npm run start'''
       }
     }
   }
