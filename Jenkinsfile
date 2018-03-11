@@ -8,22 +8,18 @@ pipeline {
   }
   stages {
     stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh 'npm install'
-          }
-        }
-        stage('') {
-          steps {
-            sh 'npm run mocha'
-          }
-        }
+      steps {
+        sh 'npm install'
       }
     }
-    stage('') {
+    stage('Test') {
       steps {
-        sh 'npm start'
+        sh 'npm run mocha'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'npm run start'
       }
     }
   }
