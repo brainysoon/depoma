@@ -1,11 +1,11 @@
-import {Route} from 'react-router';
+import {Route, Switch} from 'react-router';
 import React from 'react';
 
-import Home from 'src/launchHome/index';
+import LaunchHome from 'src/launchHome';
 
 const appRoute = (
-
-    <Route path='/' component={Home}/>
-);
+    <Switch>
+        <Route path='/' component={LaunchHome}/>
+    </Switch>);
 
 export default appRoute;

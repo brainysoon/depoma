@@ -18,16 +18,12 @@ const store = createStore(
     applyMiddleware(middleware)
 );
 
-class App extends React.Component {
-
-    render() {
-
-        return <Provider store={store}>
-            <ConnectedRouter history={history}>
-                {AppRoute}
-            </ConnectedRouter>
-        </Provider>;
-    }
-}
+const App = () => {
+    return <Provider store={store}>
+        <ConnectedRouter history={history}>
+            {AppRoute}
+        </ConnectedRouter>
+    </Provider>;
+};
 
 export default App;
