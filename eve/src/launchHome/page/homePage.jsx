@@ -5,7 +5,7 @@ import withRoot from 'src/share/withRoot';
 import AppBar from 'material-ui/AppBar';
 import ToolBar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui/Menu';
+import MenuIcon from 'material-ui-icons/Menu';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
@@ -16,7 +16,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {open: false}
+        this.state = {open: true}
     }
 
     render() {
