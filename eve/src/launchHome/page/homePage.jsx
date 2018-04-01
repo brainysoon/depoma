@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
+import {COLOR_INHERIT} from 'src/share/util/constant/constants';
 
 const styles = {};
 
@@ -25,10 +26,10 @@ class Home extends React.Component {
 
         return <AppBar>
             <ToolBar>
-                <IconButton>
+                <IconButton color={COLOR_INHERIT}>
                     <MenuIcon open={open}/>
                 </IconButton>
-                <Typography>
+                <Typography color={COLOR_INHERIT}>
                     首页
                 </Typography>
             </ToolBar>
