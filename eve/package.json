@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp start & webpack -d --watch",
-    "unit": "mocha src/**/__test__/*Test.js"
+    "unit": "mocha src/**/__test__/*Test.js",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -24,10 +25,12 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.3",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "browser-sync": "^2.23.6",
     "enzyme": "^3.3.0",
+    "flow-bin": "^0.69.0",
     "gulp": "^3.9.1",
     "run-sequence": "^2.2.1",
     "webpack": "^4.0.1",

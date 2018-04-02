@@ -1,6 +1,6 @@
+// @flow
 import React from 'react';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import withRoot from 'src/share/withRoot';
 import AppBar from 'material-ui/AppBar';
 import ToolBar from 'material-ui/Toolbar';
@@ -14,16 +14,19 @@ import {withStyles} from 'material-ui/styles';
 import {COLOR_INHERIT} from 'src/share/util/constant/constants';
 
 const styles = {};
+type Props = {
+    isDrawerOpen: boolean
+};
 
-class Home extends React.Component {
+class Home extends React.Component<Props> {
     constructor(props) {
         super(props);
-        this.state = {open: false}
+        this.state = {open: this.props.isDrawerOpen}
     }
 
     _handleMenuClick = () => {
         this.setState({open: !this.state.open})
-    }
+    };
 
     render() {
         const {open} = this.state;
@@ -49,10 +52,6 @@ class Home extends React.Component {
         </div>;
     }
 }
-
-Home.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default _.flowRight(
     withRoot,
