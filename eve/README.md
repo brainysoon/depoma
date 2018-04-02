@@ -18,4 +18,4 @@ This is some of the patter that be used in this project.
 4. do not using ()=> in UT test it will lead can not access to mocha context.
 5. all dependency should using absolute path to require `src/...`.
 6. remenber to add flow type
-7. when is doing card, remenber to name branch as [card-name] and every commit should like this [card-name] - describtions.
+7. when is doing card, remember to name branch as [card-name] and every commit should like this [card-name] - descriptions.
