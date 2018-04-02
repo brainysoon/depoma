@@ -1,0 +1,13 @@
+# This ignore file only cover the folder eve.
+
+# ignore node modules
+node_modules/
+
+# ignore package-lock.json
+package-lock.json
+
+# ignore idea
+.idea/
+
+# ignore dist
+dist/
