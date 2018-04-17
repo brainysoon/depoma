@@ -31,6 +31,7 @@ const drawerWidth = 240;
 const styles = theme => ({
     appFrame: {
         zIndex: 1,
+        minHeight: '100vh',
         overflow: 'hidden',
         position: 'relative',
         display: 'flex',
@@ -55,7 +56,6 @@ const styles = theme => ({
         marginRight: 20,
     },
     drawerPaper: {
-        position: 'relative',
         width: drawerWidth,
     },
     content: {
@@ -76,8 +76,9 @@ const styles = theme => ({
         marginLeft: 0,
     },
     bottomBar: {
+        flexGrow: 1,
         alignSelf: 'flex-end',
-        flexGrow: 1
+        marginLeft: drawerWidth,
     }
 });
 
@@ -123,10 +124,11 @@ class Home extends React.Component<Props> {
                     </Toolbar>
                 </AppBar>
                 <Drawer
-                    variant="persistent"
+                    variant="temporary"
                     anchor={anchor}
                     open={open}
                     classes={{paper: classes.drawerPaper}}
+                    onClose={this.toggleOpenState}
                 >
                     <Divider/>
                     <List>
