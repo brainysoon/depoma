@@ -21,6 +21,8 @@ import InfoIcon from 'material-ui-icons/Info';
 import FolderIcon from 'material-ui-icons/Folder';
 import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 import TextConstants from 'src/share/constant/TextConstants';
+import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
+
 
 type Props = {};
 
@@ -59,12 +61,12 @@ const styles = theme => ({
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
-        padding: theme.spacing.unit * 3,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
         marginLeft: -drawerWidth,
+        display: 'flex'
     },
     contentShift: {
         transition: theme.transitions.create('margin', {
@@ -73,6 +75,10 @@ const styles = theme => ({
         }),
         marginLeft: 0,
     },
+    bottomBar: {
+        alignSelf: 'flex-end',
+        flexGrow: 1
+    }
 });
 
 class Home extends React.Component<Props> {
@@ -86,9 +92,14 @@ class Home extends React.Component<Props> {
         this.setState({open: !this.state.open})
     };
 
+    handleBottomBarClick = (event, value) => {
+
+        this.setState({barIndex: value});
+    };
+
     render() {
         const {classes} = this.props;
-        const {anchor, open} = this.state;
+        const {anchor, open, barIndex} = this.state;
 
         return (
             <div className={classes.appFrame}>
@@ -165,6 +176,16 @@ class Home extends React.Component<Props> {
                         [classes.contentShift]: open,
                     })}
                 >
+                    <BottomNavigation
+                        value={barIndex}
+                        className={classes.bottomBar}
+                        onChange={this.handleBottomBarClick}
+                        showLabels
+                    >
+                        <BottomNavigationAction label={TextConstants.FileFolder} icon={<FolderIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
+                    </BottomNavigation>
                 </div>
             </div>
         );
