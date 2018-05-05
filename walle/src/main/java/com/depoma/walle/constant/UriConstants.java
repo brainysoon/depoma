@@ -1,4 +1,4 @@
-package com.icusin.walle.constant;
+package com.depoma.walle.constant;
 
 public interface UriConstants {
 

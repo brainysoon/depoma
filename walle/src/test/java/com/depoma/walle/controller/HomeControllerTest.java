@@ -1,4 +1,4 @@
-package com.icusin.walle.controller;
+package com.depoma.walle.controller;
 
 import org.junit.Assert;
 import org.junit.Before;
