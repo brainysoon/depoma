@@ -2,7 +2,7 @@ import React from 'react';
 import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import green from 'material-ui/colors/green';
 import yellow from 'material-ui/colors/lightGreen';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 
 const theme = createMuiTheme({
     palette: {
@@ -25,7 +25,7 @@ function withRoot(Component) {
     function WithRoot(props) {
         return (
             <MuiThemeProvider theme={theme}>
-                <Reboot/>
+                <CssBaseline />
                 <Component {...props} />
             </MuiThemeProvider>
         );
