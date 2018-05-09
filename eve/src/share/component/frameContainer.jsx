@@ -36,7 +36,6 @@ const drawerWidth = 240;
 const styles = theme => ({
     appFrame: {
         zIndex: 1,
-        minHeight: '100vh',
         overflow: 'hidden',
         position: 'relative',
         display: 'flex',
@@ -61,29 +60,36 @@ const styles = theme => ({
         marginRight: 20,
     },
     drawerPaper: {
+        position: 'relative',
         width: drawerWidth,
     },
-    content: {
+    contentContainer: {
         flexGrow: 1,
+        marginTop: 60,
         backgroundColor: theme.palette.background.default,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
         marginLeft: -drawerWidth,
-        display: 'flex'
     },
-    contentShift: {
+    contentContainerShift: {
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: 0,
     },
+    bottomBarContainer: {
+        position: 'absolute',
+        top: '92%',
+        width: '100%',
+        display: 'flex'
+
+    },
     bottomBar: {
-        flexGrow: 1,
         alignSelf: 'flex-end',
-        marginLeft: 60,
+        flexGrow: 1
     }
 });
 
@@ -114,7 +120,7 @@ class FrameContainer extends React.Component<Props> {
                     </Toolbar>
                 </AppBar>
                 <Drawer
-                    variant='temporary'
+                    variant='persistent'
                     anchor='left'
                     open={menuStatus}
                     classes={{paper: classes.drawerPaper}}
@@ -164,13 +170,13 @@ class FrameContainer extends React.Component<Props> {
                     </List>
                 </Drawer>
                 <div
-                    className={classNames(classes.content, {
-                        [classes.contentShift]: menuStatus,
+                    className={classNames(classes.contentContainer, {
+                        [classes.contentContainerShift]: menuStatus,
                     })}
                 >
-                    <div>
-                        {this.props.children}
-                    </div>
+                    {this.props.children}
+                </div>
+                <div className={classes.bottomBarContainer}>
                     <BottomNavigation
                         value={bottomNavCheckedIndex}
                         className={classes.bottomBar}

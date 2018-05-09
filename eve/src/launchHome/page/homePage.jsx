@@ -20,7 +20,6 @@ class HomePage extends React.Component<Props> {
 
         return (
             <FrameContainer {...frameContainerProps}>
-                <h1>Hello World!</h1>
             </FrameContainer>);
     }
 }
