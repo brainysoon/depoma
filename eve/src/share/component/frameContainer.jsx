@@ -39,6 +39,7 @@ const styles = theme => ({
         overflow: 'hidden',
         position: 'relative',
         display: 'flex',
+        height: '100%'
     },
     appBar: {
         position: 'absolute',
@@ -60,7 +61,6 @@ const styles = theme => ({
         marginRight: 20,
     },
     drawerPaper: {
-        position: 'relative',
         width: drawerWidth,
     },
     contentContainer: {
@@ -70,19 +70,17 @@ const styles = theme => ({
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
+        })
     },
     contentContainerShift: {
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
+        })
     },
     bottomBarContainer: {
-        position: 'absolute',
-        top: '92%',
+        position: 'fixed',
+        bottom: '0%',
         width: '100%',
         display: 'flex'
 
@@ -119,8 +117,21 @@ class FrameContainer extends React.Component<Props> {
                         </Typography>
                     </Toolbar>
                 </AppBar>
+                <div className={classes.bottomBarContainer}>
+                    <BottomNavigation
+                        value={bottomNavCheckedIndex}
+                        className={classes.bottomBar}
+                        onChange={(event, value) => {
+                            handleBottomNavClick(value)
+                        }}
+                        showLabels
+                    >
+                        <BottomNavigationAction label={TextConstants.FileFolder} icon={<FolderIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
+                    </BottomNavigation>
+                </div>
                 <Drawer
-                    variant='persistent'
                     anchor='left'
                     open={menuStatus}
                     classes={{paper: classes.drawerPaper}}
@@ -175,20 +186,6 @@ class FrameContainer extends React.Component<Props> {
                     })}
                 >
                     {this.props.children}
-                </div>
-                <div className={classes.bottomBarContainer}>
-                    <BottomNavigation
-                        value={bottomNavCheckedIndex}
-                        className={classes.bottomBar}
-                        onChange={(event, value) => {
-                            handleBottomNavClick(value)
-                        }}
-                        showLabels
-                    >
-                        <BottomNavigationAction label={TextConstants.FileFolder} icon={<FolderIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
-                    </BottomNavigation>
                 </div>
             </div>
         );
