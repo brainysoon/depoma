@@ -37,9 +37,7 @@ const styles = theme => ({
     appFrame: {
         zIndex: 1,
         overflow: 'hidden',
-        position: 'relative',
-        display: 'flex',
-        height: '100%'
+        display: 'flex'
     },
     appBar: {
         position: 'absolute',
@@ -79,7 +77,7 @@ const styles = theme => ({
         })
     },
     bottomBarContainer: {
-        position: 'fixed',
+        position: 'absolute',
         bottom: '0%',
         width: '100%',
         display: 'flex'
