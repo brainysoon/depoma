@@ -1,4 +1,4 @@
-package com.icusin.walle;
+package com.depoma.walle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

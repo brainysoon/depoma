@@ -1,6 +1,6 @@
-package com.icusin.walle.controller;
+package com.depoma.walle.controller;
 
-import com.icusin.walle.constant.UriConstants;
+import com.depoma.walle.constant.UriConstants;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
