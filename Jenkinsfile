@@ -1,29 +1,22 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:6-alpine'
-      args '-p 3000:3000'
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'walle/jenkins/build.sh'
+                sh 'mo/jenkins/build.sh'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'walle/jenkins/test.sh'
+                sh 'mo/jenkins/test.sh'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh './deploy.sh'
+            }
+        }
     }
-    
-  }
-  stages {
-    stage('Build') {
-      steps {
-        sh '''cd eve
-npm install'''
-      }
-    }
-    stage('Test') {
-      steps {
-        sh '''cd eve
-npm run unit'''
-      }
-    }
-    stage('Deploy') {
-      steps {
-        sh '''cd eve
-npm run start'''
-      }
-    }
-  }
 }

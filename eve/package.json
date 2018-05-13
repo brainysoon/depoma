@@ -6,7 +6,8 @@
   "scripts": {
     "start": "gulp start & webpack -d --watch",
     "unit": "mocha src/**/__test__/*Test.js",
-    "flow": "flow"
+    "flow": "flow",
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
