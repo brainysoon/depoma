@@ -28,11 +28,10 @@ echo start building mo
 cd /home/depoma/mo
 
 python3 setup.py bdist_wheel
-cp mo-1.0.0-py3-none-any.whl docker/mo-1.0.0-py3-none-any.whl
+cp dist/mo-1.0.0-py3-none-any.whl docker/mo-1.0.0-py3-none-any.whl
 
 cd docker
 
-cd docker
 docker build -t mo .
 docker rm -f mo-instance
 docker run --name mo-instance -d -p 8080:8080 mo
