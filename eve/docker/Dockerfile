@@ -1,2 +1,3 @@
 FROM nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY index.html /usr/share/nginx/html
+COPY bundle.js /usr/share/nginx/html
