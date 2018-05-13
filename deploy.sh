@@ -16,15 +16,12 @@ echo start building eve
 cd eve
 
 npm install
-
 npm run build
-
 cp dist/bundle.js docker/bundle.js
 
+cd docker
 docker build -t eve .
-
 docker rm -f eve-instance
-
 docker run --name eve-instance -d -p 80:80 eve
 
 echo start building mo
