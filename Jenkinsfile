@@ -15,8 +15,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'walle/jenkins/deploy.sh'
-                sh 'mo/jenkins/deploy.sh'
+                sh './deploy.sh'
             }
         }
     }
