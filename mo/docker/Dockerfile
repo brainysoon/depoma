@@ -7,11 +7,11 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-pip install mo-1.0.0-py3-none-any.whl
+RUN pip install mo-1.0.0-py3-none-any.whl
 
-CMD export FLASK_APP=mo
+CMD export FLASK_APP=flaskr
 CMD flask init-db
 
-waitress-serve --call 'mo:create_app'
+CMD waitress-serve --call 'flaskr:create_app'
 
 EXPOSE 8080
