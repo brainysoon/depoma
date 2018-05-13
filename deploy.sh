@@ -25,7 +25,7 @@ docker rm -f eve-instance
 docker run --name eve-instance -d -p 80:80 eve
 
 echo start building mo
-cd mo
+cd /home/depoma/mo
 
 python3 setup.py bdist_wheel
 cp mo-1.0.0-py3-none-any.whl docker/mo-1.0.0-py3-none-any.whl
