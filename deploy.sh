@@ -27,4 +27,7 @@ docker rm -f eve-instance
 
 docker run --name eve-instance -d -p 80:80 eve
 
+echo start building mo
+cd mo
+
 stage-icusin-remote
