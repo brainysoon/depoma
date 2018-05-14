@@ -7,9 +7,9 @@ export const mapMenuIndexToURL = (index: number): string => {
         case 0:
             return HOME;
         case 1:
-            return ROBOT;
-        case 2:
             return CONTENT;
+        case 2:
+            return ROBOT;
         case 3:
             return LOG;
         default:

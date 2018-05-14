@@ -17,7 +17,8 @@ import SettingsIcon from 'material-ui-icons/Settings';
 import BugReportIcon from 'material-ui-icons/BugReport';
 import FeedbackIcon from 'material-ui-icons/Feedback';
 import InfoIcon from 'material-ui-icons/Info';
-import FolderIcon from 'material-ui-icons/Folder';
+import DescriptionIcon from 'material-ui-icons/Description';
+import ListIcon from 'material-ui-icons/List';
 import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 import TextConstants from 'src/share/constant/textConstants';
 import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
@@ -128,9 +129,10 @@ class FrameContainer extends React.Component<Props> {
                         onChange={this._onBottomNavClick}
                         showLabels
                     >
-                        <BottomNavigationAction label={TextConstants.FileFolder} icon={<FolderIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
                         <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.CONTENT} icon={<DescriptionIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.LOG} icon={<ListIcon/>}/>
                     </BottomNavigation>
                 </div>
                 <Drawer
@@ -155,9 +157,9 @@ class FrameContainer extends React.Component<Props> {
                         </ListItem>
                         <ListItem button>
                             <ListItemIcon>
-                                <FolderIcon/>
+                                <DescriptionIcon/>
                             </ListItemIcon>
-                            <ListItemText primary={TextConstants.FileFolder}/>
+                            <ListItemText primary={TextConstants.CONTENT}/>
                         </ListItem>
                     </List>
                     <Divider/>
