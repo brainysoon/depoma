@@ -1,14 +1,14 @@
 import React from 'react';
 import {Switch, Route} from 'react-router';
-import RobotPage from 'src/robot/page/robotPage';
+import ProfilePage from 'src/profile/page/profilePage';
 import URIConstants from 'src/share/constant/uriConstants';
 
-const Robot = () => {
+const Profile = () => {
     return (
         <Switch>
-            <Route path={URIConstants.ROBOT} component={RobotPage}/>
+            <Route path={URIConstants.PROFILE} component={ProfilePage}/>
         </Switch>
     );
 };
 
-export default Robot;
+export default Profile;

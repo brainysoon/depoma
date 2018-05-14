@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import {connect} from 'react-redux';
+import {push} from 'react-router-redux';
 import FrameContainer from 'src/share/component/frameContainer';
 import {toggleMenuStatus, handleBottomNavClick} from 'src/share/action/sharedActions';
 
@@ -8,19 +9,20 @@ type Props = {
     menuStatus: boolean,
     bottomNavCheckedIndex: number,
     toggleMenuStatus: () => void,
-    handleBottomNavClick: (number) => void
+    handleBottomNavClick: (number) => void,
+    push: (string) => void
 };
 
 const styles = theme => ({});
 
-class HomePage extends React.Component<Props> {
+class LogPage extends React.Component<Props> {
 
     render() {
         const {...frameContainerProps} = this.props;
 
         return (
             <FrameContainer {...frameContainerProps}>
-                <h1>Hello World!</h1>
+                <h1>This should be  log of communication!</h1>
             </FrameContainer>);
     }
 }
@@ -34,7 +36,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     toggleMenuStatus: toggleMenuStatus,
-    handleBottomNavClick: handleBottomNavClick
+    handleBottomNavClick: handleBottomNavClick,
+    push: push
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(LogPage);

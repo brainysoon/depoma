@@ -1,5 +1,6 @@
 export default {
-    FileFolder: '文件管理',
+    CONTENT: '内容',
+    LOG:'记录',
     TITLE_HOME: '首页',
     PROFILE: '个人中心',
     AUTO: '机器人',
