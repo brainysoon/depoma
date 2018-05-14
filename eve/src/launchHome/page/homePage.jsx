@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import FrameContainer from 'src/share/component/frameContainer';
 import {toggleMenuStatus, handleBottomNavClick} from 'src/share/action/sharedActions';
-import {} from 'src/share/util/frameContainerUtils';
 
 type Props = {
     menuStatus: boolean,
