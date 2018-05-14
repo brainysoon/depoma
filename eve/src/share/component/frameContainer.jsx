@@ -151,15 +151,21 @@ class FrameContainer extends React.Component<Props> {
                         </ListItem>
                         <ListItem button>
                             <ListItemIcon>
+                                <DescriptionIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary={TextConstants.CONTENT}/>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
                                 <BugReportIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.AUTO}/>
                         </ListItem>
                         <ListItem button>
                             <ListItemIcon>
-                                <DescriptionIcon/>
+                                <ListIcon/>
                             </ListItemIcon>
-                            <ListItemText primary={TextConstants.CONTENT}/>
+                            <ListItemText primary={TextConstants.LOG}/>
                         </ListItem>
                     </List>
                     <Divider/>
