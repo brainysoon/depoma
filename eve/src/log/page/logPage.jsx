@@ -15,14 +15,14 @@ type Props = {
 
 const styles = theme => ({});
 
-class HomePage extends React.Component<Props> {
+class LogPage extends React.Component<Props> {
 
     render() {
         const {...frameContainerProps} = this.props;
 
         return (
             <FrameContainer {...frameContainerProps}>
-                <h1>Hello World!</h1>
+                <h1>This should be  log of communication!</h1>
             </FrameContainer>);
     }
 }
@@ -40,4 +40,4 @@ const mapDispatchToProps = {
     push: push
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(LogPage);

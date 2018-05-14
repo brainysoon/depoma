@@ -15,14 +15,14 @@ type Props = {
 
 const styles = theme => ({});
 
-class RobotPage extends React.Component<Props> {
+class ContentPage extends React.Component<Props> {
 
     render() {
         const {...frameContainerProps} = this.props;
 
         return (
             <FrameContainer {...frameContainerProps}>
-                <h1>This should be list of robot!</h1>
+                <h1>This will be list of content!</h1>
             </FrameContainer>);
     }
 }
@@ -40,4 +40,4 @@ const mapDispatchToProps = {
     push: push
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RobotPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ContentPage);

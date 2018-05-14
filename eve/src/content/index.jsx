@@ -1,14 +1,14 @@
 import React from 'react';
 import {Switch, Route} from 'react-router';
-import ProfilePage from 'src/profile/page/profilePage';
+import ContentPage from 'src/content/page/contentPage';
 import URIConstants from 'src/share/constant/uriConstants';
 
-const Profile = () => {
+const Content = () => {
     return (
         <Switch>
-            <Route path={URIConstants.PROFILE} component={ProfilePage}/>
+            <Route path={URIConstants.CONTENT} component={ContentPage}/>
         </Switch>
     );
 };
 
-export default Profile;
+export default Content;
