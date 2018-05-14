@@ -1,4 +1,6 @@
-export const HOME = '/';
-export const ROBOT = '/robot';
-export const CONTENT = '/content';
-export const LOG = '/log';
+export default {
+    HOME: '/',
+    ROBOT: '/robot',
+    CONTENT: '/content',
+    LOG: '/log'
+};
