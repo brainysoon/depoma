@@ -5,7 +5,7 @@ export const mapMenuIndexToURL = (index: number): string => {
 
     switch (index) {
         case 0:
-            return URIConstants.HOME;
+            return URIConstants.PROFILE;
         case 1:
             return URIConstants.CONTENT;
         case 2:
@@ -13,6 +13,6 @@ export const mapMenuIndexToURL = (index: number): string => {
         case 3:
             return URIConstants.LOG;
         default:
-            return URIConstants.HOME;
+            return URIConstants.PROFILE;
     }
 };

@@ -9,7 +9,7 @@ import Content from 'src/content';
 
 const appRoute = (
     <Switch>
-        <Route exect path={URIConstants.HOME} component={Profile}/>
+        <Route exect path={URIConstants.PROFILE} component={Profile}/>
         <Route path={URIConstants.CONTENT} component={Content}/>
         <Route path={URIConstants.ROBOT} component={Robot}/>
         <Route path={URIConstants.LOG} component={Log}/>

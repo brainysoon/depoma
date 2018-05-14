@@ -1,5 +1,5 @@
 export default {
-    HOME: '/',
+    PROFILE: '/',
     ROBOT: '/robot',
     CONTENT: '/content',
     LOG: '/log'
