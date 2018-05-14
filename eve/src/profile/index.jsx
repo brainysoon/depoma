@@ -1,8 +1,8 @@
 import React from 'react';
 import {Switch, Route} from 'react-router';
-import HomePage from 'src/launchHome/page/homePage';
+import HomePage from 'src/profile/page/homePage';
 
-const LaunchHome = () => {
+const Profile = () => {
     return (
         <Switch>
             <Route path={'/'} component={HomePage}/>
@@ -10,4 +10,4 @@ const LaunchHome = () => {
     );
 };
 
-export default LaunchHome;
+export default Profile;

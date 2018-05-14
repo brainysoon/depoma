@@ -1,11 +1,11 @@
 import {Route, Switch} from 'react-router';
 import React from 'react';
 
-import LaunchHome from 'src/launchHome';
+import Profile from 'src/profile';
 
 const appRoute = (
     <Switch>
-        <Route path='/' component={LaunchHome}/>
+        <Route path='/' component={Profile}/>
     </Switch>);
 
 export default appRoute;
