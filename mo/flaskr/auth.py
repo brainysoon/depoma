@@ -1,10 +1,11 @@
 import functools
-
+import itchat
+import uuid
+from . import env
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, request, session, url_for, jsonify
 )
-from werkzeug.security import check_password_hash, generate_password_hash
-
+from werkzeug.security import generate_password_hash
 from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -43,27 +44,10 @@ def register():
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        db = get_db()
-        error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        pic_dir = env.QR_SAVE_DIR_PRE_FIX + str(uuid.uuid1())
+        itchat.login(enableCmdQR=True, picDir=pic_dir)
 
-        if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
-
-        if error is None:
-            session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
-
-        flash(error)
-
-    return 'login'
+    return jsonify(pic=pic_dir), 201
 
 
 @bp.route('/logout')
