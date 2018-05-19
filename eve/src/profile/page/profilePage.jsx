@@ -22,7 +22,8 @@ class ProfilePage extends React.Component<Props> {
 
         return (
             <FrameContainer {...frameContainerProps}>
-                <h1>This should be profile of wechat!</h1>
+                <h2>请扫描二维码绑定微信!</h2>
+                <img src='QR.png'/>
             </FrameContainer>);
     }
 }

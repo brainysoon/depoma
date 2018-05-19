@@ -1,8 +1,8 @@
 import React from 'react';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-import green from 'material-ui/colors/green';
-import yellow from 'material-ui/colors/lightGreen';
-import CssBaseline from 'material-ui/CssBaseline';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green';
+import yellow from '@material-ui/core/colors/lightGreen';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const theme = createMuiTheme({
     palette: {
