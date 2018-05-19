@@ -4,6 +4,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import createHistory from 'history/createBrowserHistory';
 import {ConnectedRouter, routerReducer, routerMiddleware} from 'react-router-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import QRScanDialog from 'src/share/component/qrScanDialog';
 
 import AppReducer from 'src/bootstrap/reducer/appReducer';
 import AppRoute from 'src/bootstrap/route/appRoute';
@@ -23,7 +24,10 @@ const store = createStore(
 const App = () => {
     return <Provider store={store}>
         <ConnectedRouter history={history}>
-            {AppRoute}
+            <div>
+                {AppRoute}
+                <QRScanDialog/>
+            </div>
         </ConnectedRouter>
     </Provider>;
 };
