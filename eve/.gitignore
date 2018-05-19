@@ -11,3 +11,10 @@ package-lock.json
 
 # ignore dist
 dist/
+
+# ignore docker
+docker/*.js
+docker/*.html
+
+# ignore npm debug
+npm*.log.*
