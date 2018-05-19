@@ -1,0 +1,1 @@
+export const SERVER_API_BASE_URL = 'http://stage.icusin.com:8080/api';
