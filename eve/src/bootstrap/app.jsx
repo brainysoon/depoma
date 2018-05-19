@@ -8,7 +8,7 @@ import QRScanDialog from 'src/share/component/qrScanDialog';
 import axiosMiddleware from 'redux-axios-middleware';
 import {SERVER_API_BASE_URL} from 'src/share/constant/configConstants';
 import axios from 'axios';
-
+import thunk from 'redux-thunk';
 import AppReducer from 'src/bootstrap/reducer/appReducer';
 import AppRoute from 'src/bootstrap/route/appRoute';
 
@@ -25,8 +25,11 @@ const store = createStore(
         app: AppReducer,
         router: routerReducer
     }),
-    composeEnhancer(applyMiddleware(routerMiddleware(history),
-        axiosMiddleware(client)))
+    composeEnhancer(applyMiddleware(
+        thunk,
+        routerMiddleware(history),
+        axiosMiddleware(client)),
+    )
 );
 
 const App = () => {
