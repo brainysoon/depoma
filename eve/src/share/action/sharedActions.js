@@ -3,9 +3,9 @@
 import {
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
     LOAD_WECHAT_GRANT_QR,
-    LOAD_WECHAT_GRANT_QR_FAILED,
-    LOAD_WECHAT_GRANT_QR_SUCCEED,
-    TOGGLE_MENU_STATUS
+    TOGGLE_MENU_STATUS,
+    LOAD_WECHAT_LOGIN_STATE,
+    WECHAT_LOGIN_STATE_CHANGE
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -30,22 +30,42 @@ export const loadQR = () => {
             type: LOAD_WECHAT_GRANT_QR,
             payload: {
                 request: {
-                    url: '/hello',
+                    url: '/auth/qr',
                     method: 'GET'
                 }
             }
         })
             .then((response) => {
-                dispatch({
-                    type: LOAD_WECHAT_GRANT_QR_SUCCEED,
-                    wechatLoginState: response.url
-                })
             })
             .catch(function (error) {
                 console.log(error);
-                dispatch({
-                    type: LOAD_WECHAT_GRANT_QR_FAILED,
-                })
+            });
+    };
+};
+
+export const checkWechatLoginState = () => {
+
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_WECHAT_LOGIN_STATE,
+            payload: {
+                request: {
+                    url: '/auth/login/state',
+                    method: 'GET'
+                }
+            }
+        })
+            .then((response) => {
+
+                if (!response.state) {
+                    dispatch({
+                        type: WECHAT_LOGIN_STATE_CHANGE,
+                        wechatLoginState: true
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
             });
     };
 };
