@@ -2,26 +2,30 @@
 import React from 'react';
 import _ from 'lodash';
 import withRoot from 'src/share/enhancer/withRoot';
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import Drawer from 'material-ui/Drawer';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
-import {withStyles} from 'material-ui/styles';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Drawer from '@material-ui/core/Drawer';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
-import Toolbar from 'material-ui/Toolbar';
-import AccountCircleIcon from 'material-ui-icons/AccountCircle';
-import SettingsIcon from 'material-ui-icons/Settings';
-import BugReportIcon from 'material-ui-icons/BugReport';
-import FeedbackIcon from 'material-ui-icons/Feedback';
-import InfoIcon from 'material-ui-icons/Info';
-import DescriptionIcon from 'material-ui-icons/Description';
-import ListIcon from 'material-ui-icons/List';
-import ArrowBackIcon from 'material-ui-icons/ArrowBack';
+import Toolbar from '@material-ui/core/Toolbar';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SettingsIcon from '@material-ui/icons/Settings';
+import BugReportIcon from '@material-ui/icons/BugReport';
+import FeedbackIcon from '@material-ui/icons/Feedback';
+import InfoIcon from '@material-ui/icons/Info';
+import DescriptionIcon from '@material-ui/icons/Description';
+import ListIcon from '@material-ui/icons/List';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import TextConstants from 'src/share/constant/textConstants';
-import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {mapMenuIndexToURL} from 'src/share/util/frameContainerUtils';
 
 type Props = {
@@ -41,7 +45,8 @@ const styles = theme => ({
         display: 'flex'
     },
     appBar: {
-        position: 'absolute',
+        position: 'fixed',
+        top: 0,
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -78,8 +83,9 @@ const styles = theme => ({
         })
     },
     bottomBarContainer: {
-        position: 'absolute',
-        bottom: '0%',
+        zIndex: 100,
+        position: 'fixed',
+        bottom: '0',
         width: '100%',
         display: 'flex'
 
@@ -122,19 +128,6 @@ class FrameContainer extends React.Component<Props> {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <div className={classes.bottomBarContainer}>
-                    <BottomNavigation
-                        value={bottomNavCheckedIndex}
-                        className={classes.bottomBar}
-                        onChange={this._onBottomNavClick}
-                        showLabels
-                    >
-                        <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.CONTENT} icon={<DescriptionIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.LOG} icon={<ListIcon/>}/>
-                    </BottomNavigation>
-                </div>
                 <Drawer
                     anchor='left'
                     open={menuStatus}
@@ -190,6 +183,19 @@ class FrameContainer extends React.Component<Props> {
                         </ListItem>
                     </List>
                 </Drawer>
+                <div className={classes.bottomBarContainer}>
+                    <BottomNavigation
+                        value={bottomNavCheckedIndex}
+                        className={classes.bottomBar}
+                        onChange={this._onBottomNavClick}
+                        showLabels
+                    >
+                        <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.CONTENT} icon={<DescriptionIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.LOG} icon={<ListIcon/>}/>
+                    </BottomNavigation>
+                </div>
                 <div
                     className={classNames(classes.contentContainer, {
                         [classes.contentContainerShift]: menuStatus,
