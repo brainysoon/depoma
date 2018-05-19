@@ -41,7 +41,8 @@ const styles = theme => ({
         display: 'flex'
     },
     appBar: {
-        position: 'absolute',
+        position: 'fixed',
+        top: 0,
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -78,8 +79,9 @@ const styles = theme => ({
         })
     },
     bottomBarContainer: {
-        position: 'absolute',
-        bottom: '0%',
+        zIndex: 100,
+        position: 'fixed',
+        bottom: '0',
         width: '100%',
         display: 'flex'
 
@@ -122,19 +124,6 @@ class FrameContainer extends React.Component<Props> {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <div className={classes.bottomBarContainer}>
-                    <BottomNavigation
-                        value={bottomNavCheckedIndex}
-                        className={classes.bottomBar}
-                        onChange={this._onBottomNavClick}
-                        showLabels
-                    >
-                        <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.CONTENT} icon={<DescriptionIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
-                        <BottomNavigationAction label={TextConstants.LOG} icon={<ListIcon/>}/>
-                    </BottomNavigation>
-                </div>
                 <Drawer
                     anchor='left'
                     open={menuStatus}
@@ -190,6 +179,19 @@ class FrameContainer extends React.Component<Props> {
                         </ListItem>
                     </List>
                 </Drawer>
+                <div className={classes.bottomBarContainer}>
+                    <BottomNavigation
+                        value={bottomNavCheckedIndex}
+                        className={classes.bottomBar}
+                        onChange={this._onBottomNavClick}
+                        showLabels
+                    >
+                        <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.CONTENT} icon={<DescriptionIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.AUTO} icon={<BugReportIcon/>}/>
+                        <BottomNavigationAction label={TextConstants.LOG} icon={<ListIcon/>}/>
+                    </BottomNavigation>
+                </div>
                 <div
                     className={classNames(classes.contentContainer, {
                         [classes.contentContainerShift]: menuStatus,
