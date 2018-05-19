@@ -3,7 +3,7 @@ import {
     TOGGLE_MENU_STATUS,
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
     WECHAT_LOGIN_STATE_CHANGE,
-    LOAD_WECHAT_GRANT_QR_SUCCESSFULLY
+    LOAD_WECHAT_GRANT_QR_SUCCEED
 } from 'src/share/actionType/sharedActionTypes';
 import {
     DEFAULT_BOTTOM_NAV_CHECKED_INDEX,
@@ -45,8 +45,8 @@ const wechatLoginState = (state = DEFAULT_WECHAT_LOGIN_STATE, action) => {
 const wechatQRURL = (state = DEFAULT_WECHAT_GRANT_QR_URL, action) => {
 
     switch (action.type) {
-        case LOAD_WECHAT_GRANT_QR_SUCCESSFULLY:
-            return action.wechatGrantQRURL;
+        case LOAD_WECHAT_GRANT_QR_SUCCEED:
+            return action.url;
         default:
             return state;
     }

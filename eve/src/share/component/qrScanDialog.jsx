@@ -17,9 +17,13 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import {loadQR} from 'src/share/action/sharedActions';
+
 
 type Props = {
-    wechatLoginState: boolean
+    wechatLoginState: boolean,
+    wechatQRURL: string,
+    loadQR: () => void
 };
 
 const styles = (theme) => ({
@@ -57,8 +61,13 @@ function Transition(props) {
 
 class QrScanDialog extends React.Component<Props> {
 
+    componentDidMount() {
+
+        this.props.loadQR();
+    }
+
     render() {
-        const {classes, wechatLoginState} = this.props;
+        const {classes, wechatLoginState, wechatQRURL} = this.props;
         return (
             <div className={classes.appFrame}>
                 <Dialog
@@ -88,7 +97,7 @@ class QrScanDialog extends React.Component<Props> {
                         <CardMedia
                             className={classes.qr}
                             component='img'
-                            image="QR.png"
+                            image={wechatQRURL}
                             title="qr"
                         />
                         <CardContent>
@@ -114,10 +123,13 @@ class QrScanDialog extends React.Component<Props> {
 const mapStateToProps = (state) => {
     return {
         wechatLoginState: state.app.wechatLoginState,
+        wechatQRURL: state.app.wechatQRURL
     }
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    loadQR: loadQR
+};
 
 export default _.flowRight(
     withRoot,

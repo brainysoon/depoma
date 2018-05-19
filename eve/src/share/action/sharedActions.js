@@ -1,10 +1,11 @@
 // @flow
-import axios from 'axios';
 
 import {
-    TOGGLE_MENU_STATUS,
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
-    WECHAT_LOGIN_STATE_CHANGE
+    LOAD_WECHAT_GRANT_QR,
+    LOAD_WECHAT_GRANT_QR_FAILED,
+    LOAD_WECHAT_GRANT_QR_SUCCEED,
+    TOGGLE_MENU_STATUS
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -25,17 +26,26 @@ export const handleBottomNavClick = (bottomNavCheckedIndex: number) => {
 export const loadQR = () => {
 
     return (dispatch) => {
-        axios.get('/hello')
-            .then(function (response) {
-                dispatch(() => {
-                    return {
-                        type: WECHAT_LOGIN_STATE_CHANGE,
-                        wechatLoginState: false
-                    }
+        dispatch({
+            type: LOAD_WECHAT_GRANT_QR,
+            payload: {
+                request: {
+                    url: '/hello',
+                    method: 'GET'
+                }
+            }
+        })
+            .then((response) => {
+                dispatch({
+                    type: LOAD_WECHAT_GRANT_QR_SUCCEED,
+                    wechatLoginState: response.url
                 })
             })
             .catch(function (error) {
                 console.log(error);
+                dispatch({
+                    type: LOAD_WECHAT_GRANT_QR_FAILED,
+                })
             });
     };
 };
