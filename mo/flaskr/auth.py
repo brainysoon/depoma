@@ -1,11 +1,14 @@
 import functools
+import uuid
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, request, session, url_for, jsonify
 )
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 
 from flaskr.db import get_db
+from . import env
+from . import wechat
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -40,30 +43,15 @@ def register():
     return 'register'
 
 
-@bp.route('/login', methods=('GET', 'POST'))
+@bp.route('/qr', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        db = get_db()
-        error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        uuit = str(uuid.uuid1())
 
-        if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+        login_thread = wechat.wechat_login(1, 'test', uuid)
+        login_thread.start()
 
-        if error is None:
-            session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
-
-        flash(error)
-
-    return 'login'
+    return jsonify(link=env.server_prefix() + '/auth/login/' + uuid), 201
 
 
 @bp.route('/logout')

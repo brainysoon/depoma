@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 from . import db, auth
+from . import api
 
 
 def create_app(test_config=None):
@@ -34,5 +35,6 @@ def create_app(test_config=None):
 
     # auth
     app.register_blueprint(auth.bp)
+    app.register_blueprint(api.api_v1)
 
     return app
