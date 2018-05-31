@@ -34,6 +34,6 @@ cd docker
 
 docker build -t mo .
 docker rm -f mo-instance
-docker run --name mo-instance -d -p 8080:8080 mo
+docker run --name mo-instance -v /var/depoma/qr:/var/depoma/qr -d -p 8080:8080 mo
 
 stage-icusin-remote
