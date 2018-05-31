@@ -30,8 +30,8 @@ export const loadQR = () => {
             type: LOAD_WECHAT_GRANT_QR,
             payload: {
                 request: {
-                    url: '/auth/qr',
-                    method: 'GET'
+                    url: '/login',
+                    method: 'POST'
                 }
             }
         })
@@ -50,7 +50,7 @@ export const checkWechatLoginState = () => {
             type: LOAD_WECHAT_LOGIN_STATE,
             payload: {
                 request: {
-                    url: '/auth/login/state',
+                    url: '/login/state',
                     method: 'GET'
                 }
             }
