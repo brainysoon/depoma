@@ -19,6 +19,6 @@ def login():
         login_thread = wechat.wechat_login(1, 'test', wechat_id)
         login_thread.start()
 
-        pic_link = env.server_prefix() + '/qr/' + wechat_id
+        pic_link = env.server_resources_prefix() + '/qr/' + wechat_id
 
     return jsonify(link=pic_link), 201
