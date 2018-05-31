@@ -7,6 +7,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+VOLUME ['/var/depoma/qr','/var/depoma/qr']
+
 RUN pip install mo-1.0.0-py3-none-any.whl
 
 CMD export FLASK_APP=flaskr
