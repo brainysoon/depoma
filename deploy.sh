@@ -22,7 +22,7 @@ cp dist/bundle.js docker/bundle.js
 cd docker
 docker build -t eve .
 docker rm -f eve-instance
-docker run --name eve-instance -d -p 80:80 eve
+docker run --name eve-instance -v /var/depoma/qr:/usr/share/nginx/html/qr -d -p 80:80 eve
 
 echo start building mo
 cd /home/depoma/mo
