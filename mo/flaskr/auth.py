@@ -1,12 +1,14 @@
 import functools
-import itchat
 import uuid
-from . import env
+
 from flask import (
     Blueprint, flash, g, redirect, request, session, url_for, jsonify
 )
 from werkzeug.security import generate_password_hash
+
 from flaskr.db import get_db
+from . import env
+from . import wechat
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -45,9 +47,11 @@ def register():
 def login():
     if request.method == 'POST':
         pic_dir = env.QR_SAVE_DIR_PRE_FIX + str(uuid.uuid1())
-        itchat.login(enableCmdQR=True, picDir=pic_dir)
 
-    return jsonify(pic=pic_dir), 201
+        login_thread = wechat.wechat_login(1, 'test', pic_dir)
+        login_thread.start()
+
+    return jsonify(link=env.server_prefix() + '/auth/login/' + pic_dir), 201
 
 
 @bp.route('/logout')
