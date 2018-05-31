@@ -43,15 +43,15 @@ def register():
     return 'register'
 
 
-@bp.route('/login', methods=('GET', 'POST'))
+@bp.route('/qr', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        pic_dir = env.QR_SAVE_DIR_PRE_FIX + str(uuid.uuid1())
+        uuit = str(uuid.uuid1())
 
-        login_thread = wechat.wechat_login(1, 'test', pic_dir)
+        login_thread = wechat.wechat_login(1, 'test', uuid)
         login_thread.start()
 
-    return jsonify(link=env.server_prefix() + '/auth/login/' + pic_dir), 201
+    return jsonify(link=env.server_prefix() + '/auth/login/' + uuid), 201
 
 
 @bp.route('/logout')
