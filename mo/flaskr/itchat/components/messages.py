@@ -4,8 +4,6 @@ import mimetypes, hashlib
 import logging
 from collections import OrderedDict
 
-import requests
-
 from .. import config, utils
 from ..returnvalues import ReturnValue
 from ..storage import templates
@@ -28,7 +26,7 @@ def get_download_fn(core, url, msgId):
         params = {
             'msgid': msgId,
             'skey': core.loginInfo['skey'],}
-        headers = { 'User-Agent' : config.USER_AGENT }
+        headers = { 'User-Agent' : config.USER_AGENT}
         r = core.s.get(url, params=params, stream=True, headers = headers)
         tempStorage = io.BytesIO()
         for block in r.iter_content(1024):
@@ -65,15 +63,15 @@ def produce_msg(core, msgList):
         # set user of msg
         if '@@' in actualOpposite:
             m['User'] = core.search_chatrooms(userName=actualOpposite) or \
-                templates.Chatroom({'UserName': actualOpposite})
+                        templates.Chatroom({'UserName': actualOpposite})
             # we don't need to update chatroom here because we have
             # updated once when producing basic message
         elif actualOpposite in ('filehelper', 'fmessage'):
             m['User'] = templates.User({'UserName': actualOpposite})
         else:
             m['User'] = core.search_mps(userName=actualOpposite) or \
-                core.search_friends(userName=actualOpposite) or \
-                templates.User(userName=actualOpposite)
+                        core.search_friends(userName=actualOpposite) or \
+                        templates.User(userName=actualOpposite)
             # by default we think there may be a user missing not a mp
         m['User'].core = core
         if m['MsgType'] == 1: # words
@@ -157,7 +155,7 @@ def produce_msg(core, msgList):
                         'fromuser': core.loginInfo['wxuin'],
                         'pass_ticket': 'undefined',
                         'webwx_data_ticket': cookiesList['webwx_data_ticket'],}
-                    headers = { 'User-Agent' : config.USER_AGENT }
+                    headers = { 'User-Agent' : config.USER_AGENT}
                     r = core.s.get(url, params=params, stream=True, headers=headers)
                     tempStorage = io.BytesIO()
                     for block in r.iter_content(1024):
@@ -273,7 +271,7 @@ def send_raw_msg(self, msgType, content, toUserName):
             'ClientMsgId': int(time.time() * 1e4),
             },
         'Scene': 0, }
-    headers = { 'ContentType': 'application/json; charset=UTF-8', 'User-Agent' : config.USER_AGENT }
+    headers = { 'ContentType': 'application/json; charset=UTF-8', 'User-Agent' : config.USER_AGENT}
     r = self.s.post(url, headers=headers,
         data=json.dumps(data, ensure_ascii=False).encode('utf8'))
     return ReturnValue(rawResponse=r)
