@@ -22,7 +22,7 @@ export const handleBottomNavClick = (bottomNavCheckedIndex: number) => {
     }
 };
 
-export const loadQR = () => {
+export const loadWechatLoginPayload = () => {
 
     return (dispatch) => {
         dispatch({
@@ -42,14 +42,14 @@ export const loadQR = () => {
     };
 };
 
-export const checkWechatLoginState = () => {
+export const checkWechatLoginState = (wechat_id) => {
 
     return (dispatch) => {
         dispatch({
             type: LOAD_WECHAT_LOGIN_STATE,
             payload: {
                 request: {
-                    url: '/login/state',
+                    url: '/login/status/' + wechat_id,
                     method: 'GET'
                 }
             }

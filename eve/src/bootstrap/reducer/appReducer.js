@@ -2,8 +2,8 @@ import {combineReducers} from 'redux';
 import {
     TOGGLE_MENU_STATUS,
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
-    WECHAT_LOGIN_STATE_CHANGE,
-    LOAD_WECHAT_LOGIN_PAYLOAD_SUCCESS
+    LOAD_WECHAT_LOGIN_PAYLOAD_SUCCESS,
+    LOAD_WECHAT_LOGIN_STATE_SUCCESS
 } from 'src/share/actionType/sharedActionTypes';
 import {
     DEFAULT_BOTTOM_NAV_CHECKED_INDEX,
@@ -35,8 +35,8 @@ const bottomNavCheckedIndex = (state = DEFAULT_BOTTOM_NAV_CHECKED_INDEX, action)
 const wechatLoginState = (state = DEFAULT_WECHAT_LOGIN_STATE, action) => {
 
     switch (action.type) {
-        case WECHAT_LOGIN_STATE_CHANGE:
-            return action.wechatLoginState;
+        case LOAD_WECHAT_LOGIN_STATE_SUCCESS:
+            return action.payload.data.status > 0;
         default:
             return state;
     }

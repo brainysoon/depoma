@@ -17,13 +17,13 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import {loadQR, checkWechatLoginState} from 'src/share/action/sharedActions';
+import {loadWechatLoginPayload, checkWechatLoginState} from 'src/share/action/sharedActions';
 
 
 type Props = {
     wechatLoginState: boolean,
-    wechatQRURL: string,
-    loadQR: () => void,
+    wechatLoginPayload: {},
+    loadWechatLoginPayload: () => void,
     checkWechatLoginState: () => void
 };
 
@@ -63,29 +63,35 @@ function Transition(props) {
 class QrScanDialog extends React.Component<Props> {
 
     componentDidMount() {
-        const {loadQR, wechatLoginState, wechatQRURL} = this.props;
-        _.isEmpty(wechatQRURL) && loadQR();
-        !wechatLoginState && this.checkWechatState();
+        const {loadWechatLoginPayload, wechatLoginPayload} = this.props;
+        _.isEmpty(wechatLoginPayload) && loadWechatLoginPayload();
     }
 
     componentWillReceiveProps(nextProps: Props) {
-        const {wechatLoginState} = nextProps;
+        const {wechatLoginState, wechatLoginPayload} = nextProps;
+        if (wechatLoginPayload) {
+            const wechat_id = _.get(wechatLoginPayload, 'wechat_id');
+            !wechatLoginState && this.checkWechatState(wechat_id);
+        }
 
         if (wechatLoginState) {
             window.clearInterval(this.state.intervalId);
         }
     }
 
-    checkWechatState = () => {
+    checkWechatState = (wechat_id) => {
         const {checkWechatLoginState} = this.props;
-        let intervalId = setInterval(checkWechatLoginState, 1000);
+        let intervalId = setInterval(() => {
+            checkWechatLoginState(wechat_id)
+        }, 1000);
         this.setState({
             intervalId: intervalId
         })
     };
 
     render() {
-        const {classes, wechatLoginState, wechatQRURL} = this.props;
+        const {classes, wechatLoginState, wechatLoginPayload} = this.props;
+        const qrLink = _.get(wechatLoginPayload, 'link');
         return (
             <div className={classes.appFrame}>
                 <Dialog
@@ -115,7 +121,7 @@ class QrScanDialog extends React.Component<Props> {
                         <CardMedia
                             className={classes.qr}
                             component='img'
-                            image={wechatQRURL}
+                            image={qrLink}
                             title="qr"
                         />
                         <CardContent>
@@ -141,12 +147,12 @@ class QrScanDialog extends React.Component<Props> {
 const mapStateToProps = (state) => {
     return {
         wechatLoginState: state.app.wechatLoginState,
-        wechatQRURL: state.app.wechatQRURL
+        wechatLoginPayload: state.app.wechatLoginPayload
     }
 };
 
 const mapDispatchToProps = {
-    loadQR: loadQR,
+    loadWechatLoginPayload: loadWechatLoginPayload,
     checkWechatLoginState: checkWechatLoginState
 };
 

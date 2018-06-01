@@ -1,1 +1,1 @@
-export const SERVER_API_BASE_URL = 'http://123.207.136.243:8080/api/v1';
+export const SERVER_API_BASE_URL = 'http://localhost:8080/api/v1';
