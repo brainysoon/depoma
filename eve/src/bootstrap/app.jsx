@@ -6,7 +6,7 @@ import {ConnectedRouter, routerReducer, routerMiddleware} from 'react-router-red
 import {composeWithDevTools} from 'redux-devtools-extension';
 import QRScanDialog from 'src/share/component/qrScanDialog';
 import axiosMiddleware from 'redux-axios-middleware';
-import {SERVER_API_BASE_URL_PRODUCTION} from 'src/share/constant/configConstants';
+import {SERVER_API_BASE_URL_PRODUCTION, SERVER_API_BASE_URL_DEV} from 'src/share/constant/configConstants';
 import axios from 'axios';
 import thunk from 'redux-thunk';
 import AppReducer from 'src/bootstrap/reducer/appReducer';
