@@ -2,10 +2,9 @@
 
 import {
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
-    LOAD_WECHAT_GRANT_QR,
+    LOAD_WECHAT_LOGIN_PAYLOAD,
     TOGGLE_MENU_STATUS,
     LOAD_WECHAT_LOGIN_STATE,
-    WECHAT_LOGIN_STATE_CHANGE
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -27,7 +26,7 @@ export const loadQR = () => {
 
     return (dispatch) => {
         dispatch({
-            type: LOAD_WECHAT_GRANT_QR,
+            type: LOAD_WECHAT_LOGIN_PAYLOAD,
             payload: {
                 request: {
                     url: '/login',
