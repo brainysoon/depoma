@@ -17,8 +17,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {loadWechatLoginPayload, checkWechatLoginState} from 'src/share/action/sharedActions';
-
 
 type Props = {
     wechatLoginState: boolean,
@@ -53,7 +53,16 @@ const styles = (theme) => ({
         marginTop: 60,
         backgroundColor: theme.palette.background.default,
     },
-    qr: {}
+    qr: {},
+    qrContainer: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    progress: {
+        marginTop: 80,
+        marginBottom: 80,
+        color: theme.palette.primary.light
+    }
 });
 
 function Transition(props) {
@@ -106,12 +115,10 @@ class QrScanDialog extends React.Component<Props> {
                         </Toolbar>
                     </AppBar>
                     <Card className={classes.contentContainer}>
-                        <CardMedia
-                            className={classes.qr}
-                            component='img'
-                            image={qrLink}
-                            title="qr"
-                        />
+                        <div className={classes.qrContainer}>
+                            {qrLink ? <CardMedia className={classes.qr} component='img' image={qrLink} title="qr"/> :
+                                <CircularProgress className={classes.progress} thickness={7}/>}
+                        </div>
                         <CardContent>
                             <Typography gutterBottom variant="headline" component="h2">
                                 {TextConstants.SCAN_QR_TO_GRANT_LOGIN}
