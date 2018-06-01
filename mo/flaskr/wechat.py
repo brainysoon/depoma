@@ -1,5 +1,5 @@
 import threading
-import itchat
+from .. import itchat
 from . import env
 
 
