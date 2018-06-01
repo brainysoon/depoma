@@ -16,7 +16,7 @@ def login():
     if request.method == 'POST':
         wechat_id = str(uuid.uuid1())
 
-        login_thread = wechat.wechat_login(1, 'test', wechat_id)
+        login_thread = wechat.wechat_login('test', wechat_id)
         login_thread.start()
 
         pic_link = env.server_resources_prefix() + '/qr/' + wechat_id + '.png'
