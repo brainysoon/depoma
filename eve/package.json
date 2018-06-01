@@ -7,7 +7,8 @@
     "start": "gulp start & webpack -d --watch",
     "unit": "mocha src/**/__test__/*Test.js",
     "flow": "flow",
-    "build": "gulp build"
+    "build": "gulp build",
+    "build:pro": "NODE_ENV=production gulp build"
   },
   "repository": {
     "type": "git",

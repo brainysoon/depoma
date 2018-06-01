@@ -6,7 +6,7 @@ import {ConnectedRouter, routerReducer, routerMiddleware} from 'react-router-red
 import {composeWithDevTools} from 'redux-devtools-extension';
 import QRScanDialog from 'src/share/component/qrScanDialog';
 import axiosMiddleware from 'redux-axios-middleware';
-import {SERVER_API_BASE_URL} from 'src/share/constant/configConstants';
+import {getServerAPIBaseURL} from 'src/share/util/configUtils';
 import axios from 'axios';
 import thunk from 'redux-thunk';
 import AppReducer from 'src/bootstrap/reducer/appReducer';
@@ -16,7 +16,7 @@ const history = createHistory();
 const composeEnhancer = composeWithDevTools({});
 
 const client = axios.create({
-    baseURL: SERVER_API_BASE_URL,
+    baseURL: getServerAPIBaseURL(),
     responseType: 'json'
 });
 
