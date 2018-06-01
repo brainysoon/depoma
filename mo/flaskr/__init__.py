@@ -3,7 +3,7 @@ import os
 from flask import Flask
 
 from . import api
-from . import db
+from .extensions import db
 
 
 def create_app(test_config=None):
@@ -11,9 +11,28 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SQLALCHEMY_DATABASE_URI='mysql+pymysql://depoma:depoma@stage.icusin.com:3306/depoma?charset=utf8',
+        SQLALCHEMY_TRACK_MODIFICATIONS=True
     )
 
+    # config
+    config_extensions(app)
+    config_blueprint(app)
+    config_test(app, test_config)
+    configure_logging(app)
+
+    return app
+
+
+def config_extensions(app):
+    db.init_app(app)
+
+
+def config_blueprint(app):
+    app.register_blueprint(api.api_v1)
+
+
+def config_test(app, test_config):
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -21,20 +40,17 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
 
-    @app.route('/')
-    def welcome():
-        return 'Welcome Depoma!'
+def configure_logging(app):
+    import logging
+    from logging import StreamHandler
 
-    # init db
-    db.init_app(app)
+    class DebugHandler(StreamHandler):
+        def emit(x, record):
+            StreamHandler.emit(x, record) if app.debug else None
 
-    # api
-    app.register_blueprint(api.api_v1)
+    logger = logging.getLogger('app')
+    logger.addHandler(DebugHandler())
+    logger.setLevel(logging.DEBUG)
 
-    return app
+    app.debug_logger = logger

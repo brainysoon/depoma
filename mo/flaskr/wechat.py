@@ -1,5 +1,5 @@
 import threading
-from flaskr import itchat
+from . import itchat
 from . import env
 
 
