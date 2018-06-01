@@ -34,7 +34,6 @@ gulp.task(WEBPACK_TASK_NAME, () => {
     return webpack(webpackConfig, (error, status) => {
 
         if (error) console.log(error);
-
         console.log('webpack complete build :)');
     });
 });

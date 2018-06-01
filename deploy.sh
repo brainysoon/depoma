@@ -16,7 +16,7 @@ echo start building eve
 cd eve
 
 npm install
-npm run build
+npm run build:pro
 cp dist/bundle.js docker/bundle.js
 
 cd docker
