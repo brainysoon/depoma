@@ -6,6 +6,7 @@ from flask import (
 from flask_cors import CORS
 from . import env
 from . import wechat
+import time
 
 api_v1 = Blueprint('api_v1', __name__, url_prefix='/api/v1/')
 CORS(api_v1)
@@ -20,5 +21,6 @@ def login():
         login_thread.start()
 
         pic_link = env.server_resources_prefix() + '/qr/' + wechat_id + '.png'
+        time.sleep(2)
 
     return jsonify(link=pic_link), 201
