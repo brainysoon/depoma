@@ -2,14 +2,14 @@ import {combineReducers} from 'redux';
 import {
     TOGGLE_MENU_STATUS,
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
-    WECHAT_LOGIN_STATE_CHANGE,
-    LOAD_WECHAT_GRANT_QR_SUCCESS
+    LOAD_WECHAT_LOGIN_PAYLOAD_SUCCESS,
+    LOAD_WECHAT_LOGIN_STATE_SUCCESS
 } from 'src/share/actionType/sharedActionTypes';
 import {
     DEFAULT_BOTTOM_NAV_CHECKED_INDEX,
     DEFAULT_MENU_STATUS,
     DEFAULT_WECHAT_LOGIN_STATE,
-    DEFAULT_WECHAT_GRANT_QR_URL,
+    DEFAULT_WECHAT_LOGIN_PAYLOAD,
 } from 'src/share/constant/sharedConstants';
 
 const menuStatus = (state = DEFAULT_MENU_STATUS, action) => {
@@ -35,18 +35,18 @@ const bottomNavCheckedIndex = (state = DEFAULT_BOTTOM_NAV_CHECKED_INDEX, action)
 const wechatLoginState = (state = DEFAULT_WECHAT_LOGIN_STATE, action) => {
 
     switch (action.type) {
-        case WECHAT_LOGIN_STATE_CHANGE:
-            return action.wechatLoginState;
+        case LOAD_WECHAT_LOGIN_STATE_SUCCESS:
+            return action.payload.data.status > 0;
         default:
             return state;
     }
 };
 
-const wechatQRURL = (state = DEFAULT_WECHAT_GRANT_QR_URL, action) => {
+const wechatLoginPayload = (state = DEFAULT_WECHAT_LOGIN_PAYLOAD, action) => {
 
     switch (action.type) {
-        case LOAD_WECHAT_GRANT_QR_SUCCESS:
-            return action.payload.data.link;
+        case LOAD_WECHAT_LOGIN_PAYLOAD_SUCCESS:
+            return action.payload.data;
         default:
             return state;
     }
@@ -56,7 +56,7 @@ const appReducer = combineReducers({
     bottomNavCheckedIndex,
     menuStatus,
     wechatLoginState,
-    wechatQRURL
+    wechatLoginPayload
 });
 
 export default appReducer;

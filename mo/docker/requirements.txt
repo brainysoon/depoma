@@ -4,3 +4,5 @@ waitress
 requests
 pyqrcode
 pypng
+pymysql
+flask_sqlalchemy
