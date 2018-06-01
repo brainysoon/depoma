@@ -68,26 +68,14 @@ class QrScanDialog extends React.Component<Props> {
     }
 
     componentWillReceiveProps(nextProps: Props) {
-        const {wechatLoginState, wechatLoginPayload} = nextProps;
+        const {wechatLoginPayload} = nextProps;
         if (wechatLoginPayload) {
             const wechat_id = _.get(wechatLoginPayload, 'wechat_id');
-            !wechatLoginState && this.checkWechatState(wechat_id);
-        }
-
-        if (wechatLoginState) {
-            window.clearInterval(this.state.intervalId);
+            setInterval(() => {
+                checkWechatLoginState(wechat_id)
+            }, 1000);
         }
     }
-
-    checkWechatState = (wechat_id) => {
-        const {checkWechatLoginState} = this.props;
-        let intervalId = setInterval(() => {
-            checkWechatLoginState(wechat_id)
-        }, 1000);
-        this.setState({
-            intervalId: intervalId
-        })
-    };
 
     render() {
         const {classes, wechatLoginState, wechatLoginPayload} = this.props;
