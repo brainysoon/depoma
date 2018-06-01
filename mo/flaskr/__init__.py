@@ -1,14 +1,10 @@
-import os
-
-from flask import Flask
-
 from . import api
 from .extensions import db
+from .core import app
 
 
-def create_app(test_config=None):
+def config_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
         SQLALCHEMY_DATABASE_URI='mysql+pymysql://depoma:depoma@stage.icusin.com:3306/depoma?charset=utf8',
