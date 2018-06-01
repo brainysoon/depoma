@@ -1,8 +1,8 @@
 #!/bin/bash
 
-chmod  400 ./stage_icusin_ubuntu
+chmod  400 ./pro_icusin_ubuntu
 
-ssh -T -i ./stage_icusin_ubuntu -o StrictHostKeyChecking=no root@stage.icusin.com << stage-icusin-remote
+ssh -T -i ./pro_icusin_ubuntu -o StrictHostKeyChecking=no root@icusin.com << pro-icusin-remote
 
 cd /home
 if [ ! -d "depoma" ];then
@@ -36,4 +36,4 @@ docker build -t mo .
 docker rm -f mo-instance
 docker run --name mo-instance -v /var/depoma/qr:/var/depoma/qr -d -p 8080:8080 mo
 
-stage-icusin-remote
+pro-icusin-remote
