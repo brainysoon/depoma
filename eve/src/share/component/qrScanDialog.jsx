@@ -63,8 +63,8 @@ function Transition(props) {
 class QrScanDialog extends React.Component<Props> {
 
     componentDidMount() {
-        const {loadQR, wechatLoginState} = this.props;
-        loadQR();
+        const {loadQR, wechatLoginState, wechatQRURL} = this.props;
+        !_.isEmpty(wechatQRURL) && loadQR();
         !wechatLoginState && this.checkWechatState();
     }
 
