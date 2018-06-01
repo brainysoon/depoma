@@ -2,7 +2,7 @@ import time
 import uuid
 
 from flask import (
-    Blueprint, request, jsonify
+    Blueprint, jsonify
 )
 from flask_cors import CORS
 

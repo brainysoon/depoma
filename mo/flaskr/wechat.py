@@ -9,13 +9,12 @@ import requests
 
 
 class wechat_login(threading.Thread):
-    wechat_instance = itchat.new_instance()
-
     def __init__(self, name, wechat_id):
         threading.Thread.__init__(self)
         self.name = name + wechat_id
         self.wechat_id = wechat_id
         self.pic_dir = env.QR_SAVE_DIR_PRE_FIX + wechat_id + '.png'
+        self.wechat_instance = itchat.new_instance()
 
     def run(self):
         print("开始线程：" + self.name)
@@ -24,11 +23,11 @@ class wechat_login(threading.Thread):
         self.wechat_instance.run()
         print("退出线程：" + self.name)
 
-    @wechat_instance.msg_register(itchat.content.TEXT)
-    def tuling_reply(msg):
-        default_reply = 'I received: ' + msg['Text']
-        reply = tuling_response(msg['Text'])
-        return reply or default_reply
+        @self.wechat_instance.msg_register(itchat.content.TEXT)
+        def tuling_reply(msg):
+            default_reply = 'I received: ' + msg['Text']
+            reply = tuling_response(msg['Text'])
+            return reply or default_reply
 
     def login_callback(self):
         with app.app_context():
