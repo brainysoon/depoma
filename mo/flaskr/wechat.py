@@ -8,7 +8,7 @@ class wechat_login(threading.Thread):
         threading.Thread.__init__(self)
         self.thread_id = thread_id
         self.name = name
-        self.pic_dir = env.QR_SAVE_DIR_PRE_FIX + wechat_id
+        self.pic_dir = env.QR_SAVE_DIR_PRE_FIX + wechat_id+'.png'
 
     def run(self):
         print("开始线程：" + self.name)
