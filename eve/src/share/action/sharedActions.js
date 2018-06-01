@@ -57,12 +57,6 @@ export const checkWechatLoginState = () => {
         })
             .then((response) => {
 
-                if (!response.state) {
-                    dispatch({
-                        type: WECHAT_LOGIN_STATE_CHANGE,
-                        wechatLoginState: true
-                    });
-                }
             })
             .catch(function (error) {
                 console.log(error);
