@@ -17,11 +17,18 @@ class wechat_login(threading.Thread):
     def run(self):
         print("开始线程：" + self.name)
         wechat_instance = itchat.new_instance()
-        wechat_instance.login(picDir=self.pic_dir, loginCallback=self.login_callback)
+        wechat_instance.login(picDir=self.pic_dir, loginCallback=self.login_callback,
+                              exitCallback=self.logout_callback)
         print("退出线程：" + self.name)
 
     def login_callback(self):
         with app.app_context():
             wechat_instance = WechatInfo.query.filter_by(wechat_id=self.wechat_id).first()
             wechat_instance.login_status = 1
+            db.session.commit()
+
+    def logout_callback(self):
+        with app.app_context():
+            wechat_instance = WechatInfo.query.filter_by(wechat_id=self.wechat_id).first()
+            wechat_instance.login_status = 0
             db.session.commit()
