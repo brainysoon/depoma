@@ -23,6 +23,19 @@ cd docker
 docker build -t eve .
 docker rm -f eve-instance
 docker run --name eve-instance -v /var/depoma/qr:/usr/share/nginx/html/qr -d -p 80:80 eve
+pro-icusin-remote
+
+chmod  400 ./stage_icusin_ubuntu
+
+ssh -T -i ./stage_icusin_ubuntu -o StrictHostKeyChecking=no root@icusin.com << stage-icusin-remote
+
+cd /home
+if [ ! -d "depoma" ];then
+    git clone git@github.com:brainysoon/depoma.git
+fi
+
+cd depoma
+git pull origin master
 
 echo start building mo
 cd /home/depoma/mo
@@ -36,4 +49,4 @@ docker build -t mo .
 docker rm -f mo-instance
 docker run --name mo-instance -v /var/depoma/qr:/var/depoma/qr -d -p 8080:8080 mo
 
-pro-icusin-remote
+stage-icusin-remote
