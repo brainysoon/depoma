@@ -27,7 +27,7 @@ pro-icusin-remote
 
 chmod  400 ./stage_icusin_ubuntu
 
-ssh -T -i ./stage_icusin_ubuntu -o StrictHostKeyChecking=no root@icusin.com << stage-icusin-remote
+ssh -T -i ./stage_icusin_ubuntu -o StrictHostKeyChecking=no root@stage.icusin.com << stage-icusin-remote
 
 cd /home
 if [ ! -d "depoma" ];then
