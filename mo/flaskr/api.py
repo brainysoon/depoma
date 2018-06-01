@@ -29,7 +29,7 @@ def login():
     wechat_instance = models.WechatInfo(wechat_id)
     db.session.add(wechat_instance)
     db.session.commit()
-    return jsonify(link=pic_link), 201
+    return jsonify(link=pic_link, wechat_id=wechat_id), 201
 
 
 @api_v1.route('/login/status/<wechat_id>', methods=['GET'])
