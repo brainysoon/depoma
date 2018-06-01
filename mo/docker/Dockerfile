@@ -12,6 +12,6 @@ RUN pip install mo-1.0.0-py3-none-any.whl
 CMD export FLASK_APP=flaskr
 CMD flask init-db
 
-CMD waitress-serve --call 'flaskr:create_app'
+CMD waitress-serve --call 'flaskr:config_app'
 
 EXPOSE 8080
