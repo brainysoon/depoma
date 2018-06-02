@@ -42,14 +42,14 @@ export const loadWechatLoginPayload = () => {
     };
 };
 
-export const checkWechatLoginState = (wechat_id) => {
+export const checkWechatLoginState = (service_id) => {
 
     return (dispatch) => {
         dispatch({
             type: LOAD_WECHAT_LOGIN_STATE,
             payload: {
                 request: {
-                    url: '/login/status/' + wechat_id,
+                    url: '/login/status/' + service_id,
                     method: 'GET'
                 }
             }

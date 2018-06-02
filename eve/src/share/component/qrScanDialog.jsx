@@ -82,9 +82,9 @@ class QrScanDialog extends React.Component<Props> {
     componentWillReceiveProps(nextProps: Props) {
         const {checkWechatLoginState, wechatLoginPayload} = nextProps;
         if (wechatLoginPayload) {
-            const wechat_id = _.get(wechatLoginPayload, 'wechat_id');
+            const service_id = _.get(wechatLoginPayload, 'service_id');
             setInterval(() => {
-                checkWechatLoginState(wechat_id)
+                checkWechatLoginState(service_id)
             }, 1000);
         }
     }

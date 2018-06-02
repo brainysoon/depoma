@@ -36,7 +36,7 @@ const wechatLoginState = (state = DEFAULT_WECHAT_LOGIN_STATE, action) => {
 
     switch (action.type) {
         case LOAD_WECHAT_LOGIN_STATE_SUCCESS:
-            return action.payload.data.status > 0;
+            return action.payload.data.login_status > 0;
         default:
             return state;
     }
