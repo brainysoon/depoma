@@ -53,7 +53,10 @@ const styles = (theme) => ({
         marginTop: 60,
         backgroundColor: theme.palette.background.default,
     },
-    qr: {},
+    qr: {
+        width: '100%',
+        height: '100%'
+    },
     qrContainer: {
         display: 'flex',
         justifyContent: 'center'
