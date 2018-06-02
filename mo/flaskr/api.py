@@ -39,3 +39,12 @@ def chat_records(wechat_id):
     wechat_records = WechatRecord.query.filter_by(wechat_id=wechat_id).all()
     records = [record.to_dict() for record in wechat_records]
     return jsonify(records=records), 200
+
+
+@api_v1.route('/wechat/info/<service_id>', methods=['GET'])
+def wechat_info(service_id):
+    wechat_info_instance = WechatInfo.query.filter_by(service_id=service_id).first()
+    if wechat_info_instance:
+        return jsonify(wechat_info=wechat_info_instance.to_dict()), 200
+    else:
+        return jsonify(msg='not login'), 204

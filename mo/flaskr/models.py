@@ -32,6 +32,21 @@ class WechatInfo(db.Model):
     def __repr__(self):
         return '<wechat_info %r>' % self.user_name
 
+    def to_dict(self):
+        return dict(
+            id=self.id,
+            service_id=self.service_id,
+            wechat_id=self.wechat_id,
+            nick_name=self.nick_name,
+            signature=self.signature,
+            sex=self.sex,
+            avatar_url=self.avatar_url,
+            login_status=self.login_status,
+            gmt_modified=self.gmt_modified,
+            gmt_create=self.gmt_create,
+            state=self.state
+        )
+
 
 class WechatRecord(db.Model):
     __tablename__ = 'wechat_record'
