@@ -18,13 +18,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {loadWechatLoginPayload, checkWechatLoginState} from 'src/share/action/sharedActions';
+import {loadWechatLoginPayload, checkWechatLoginState, loadWechatInfo} from 'src/share/action/sharedActions';
 
 type Props = {
     wechatLoginState: boolean,
     wechatLoginPayload: {},
     loadWechatLoginPayload: () => void,
-    checkWechatLoginState: () => void
+    checkWechatLoginState: () => void,
+    loadWechatInfo: () => void
 };
 
 const styles = (theme) => ({
@@ -80,12 +81,14 @@ class QrScanDialog extends React.Component<Props> {
     }
 
     componentWillReceiveProps(nextProps: Props) {
-        const {checkWechatLoginState, wechatLoginPayload} = nextProps;
+        const {loadWechatInfo, wechatLoginState, checkWechatLoginState, wechatLoginPayload} = nextProps;
         if (wechatLoginPayload) {
-            const service_id = _.get(wechatLoginPayload, 'service_id');
-            setInterval(() => {
-                checkWechatLoginState(service_id)
+            const serviceId = _.get(wechatLoginPayload, 'serviceId');
+            !wechatLoginState && setInterval(() => {
+                checkWechatLoginState(serviceId)
             }, 1000);
+
+            wechatLoginState && loadWechatInfo(serviceId);
         }
     }
 
@@ -151,7 +154,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadWechatLoginPayload: loadWechatLoginPayload,
-    checkWechatLoginState: checkWechatLoginState
+    checkWechatLoginState: checkWechatLoginState,
+    loadWechatInfo: loadWechatInfo
 };
 
 export default _.flowRight(
