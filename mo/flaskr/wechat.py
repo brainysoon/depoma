@@ -29,13 +29,13 @@ class wechat_login(threading.Thread):
             default_msg = 'I received: ' + msg['Text']
             tuling_msg = tuling_response(msg['Text'])
             reply = tuling_msg or default_msg
-            record_chat(reply)
+            record_chat(msg, reply)
             return reply
 
-        def record_chat(msg):
+        def record_chat(msg, reply):
             with app.app_context():
                 wechat_record_instance = WechatRecord(self.wechat_instance.loginInfo['User'].Uin,
-                                                      self.service_id, msg)
+                                                      self.service_id, msg, reply)
                 db.session.add(wechat_record_instance)
                 db.session.commit()
 

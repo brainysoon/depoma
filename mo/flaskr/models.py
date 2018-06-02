@@ -50,17 +50,26 @@ class WechatInfo(db.Model):
 
 class WechatRecord(db.Model):
     __tablename__ = 'wechat_record'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    wechat_id = db.Column(db.String)
-    robot_id = db.Column(db.String)
-    chat_content = db.Column(db.String)
-    gmt_sent = db.Column(db.DateTime)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
+    wechat_id = db.Column(db.String(128), nullable=False)
+    robot_id = db.Column(db.String(64), nullable=False)
+    to_nick_name = db.Column(db.String(64), nullable=False)
+    to_remark_name = db.Column(db.String(64), nullable=False)
+    chat_content = db.Column(db.String(64), nullable=False)
+    reply_content = db.Column(db.String(64), nullable=False)
+    gmt_sent = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.Integer)
 
-    def __init__(self, wechat_id, robot_id, chat_content):
+    def __init__(self, wechat_id, robot_id, msg, reply):
         self.wechat_id = wechat_id
         self.robot_id = robot_id
-        self.chat_content = chat_content
+        to_user = msg['User']
+        self.to_nick_name = to_user.NickName
+        self.to_remark_name = to_user.RemarkName
+        if not self.to_remark_name:
+            self.to_remark_name = ''
+        self.chat_content = msg['Content']
+        self.reply_content = reply
         self.gmt_sent = datetime.datetime.now()
         self.status = 1
 
@@ -72,7 +81,10 @@ class WechatRecord(db.Model):
             id=self.id,
             wechat_id=self.wechat_id,
             robot_id=self.robot_id,
+            to_user_name=self.to_nick_name,
+            to_remark_name=self.to_remark_name,
             chat_content=self.chat_content,
+            reply_content=self.reply_content,
             gmt_sent=str(self.gmt_sent),
             status=self.status
         )
