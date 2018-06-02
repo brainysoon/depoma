@@ -1,11 +1,12 @@
 import threading
 
+import requests
+
 from . import env
 from . import itchat
 from .core import app
-from .models import WechatInfo
 from .extensions import db
-import requests
+from .models import WechatInfo
 
 
 class wechat_login(threading.Thread):
@@ -20,14 +21,16 @@ class wechat_login(threading.Thread):
         print("开始线程：" + self.name)
         self.wechat_instance.login(picDir=self.pic_dir, loginCallback=self.login_callback,
                                    exitCallback=self.logout_callback)
-        self.wechat_instance.run()
-        print("退出线程：" + self.name)
 
         @self.wechat_instance.msg_register(itchat.content.TEXT)
         def tuling_reply(msg):
             default_reply = 'I received: ' + msg['Text']
+            print(default_reply)
             reply = tuling_response(msg['Text'])
             return reply or default_reply
+
+        self.wechat_instance.run()
+        print("退出线程：" + self.name)
 
     def login_callback(self):
         with app.app_context():
