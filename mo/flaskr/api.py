@@ -31,7 +31,7 @@ def login_status(service_id):
     if wechat_info:
         return jsonify(login_status=wechat_info.login_status), 200
     else:
-        return jsonify(msg='not login'), 204
+        return jsonify(msg='not login'), 404
 
 
 @api_v1.route('/chat/records/<wechat_id>', methods=['GET'])
@@ -47,4 +47,4 @@ def wechat_info(service_id):
     if wechat_info_instance:
         return jsonify(wechat_info=wechat_info_instance.to_dict()), 200
     else:
-        return jsonify(msg='not login'), 204
+        return jsonify(msg='not login'), 404
