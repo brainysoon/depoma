@@ -10,13 +10,12 @@ create table wechat_info
 	constraint wechat_info_wechat_id_uindex
 		unique (wechat_id)
 );
-
 create table wechat_record
 (
 	id int unsigned auto_increment
 		primary key,
-	wechat_id int unsigned not null,
-	robot_id int unsigned not null,
+	wechat_id varchar(64) not null,
+	robot_id varchar(64) not null,
 	chat_content varchar(256) not null,
 	gmt_sent datetime not null,
 	status int not null,
