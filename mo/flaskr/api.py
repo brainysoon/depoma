@@ -28,7 +28,10 @@ def login():
 @api_v1.route('/login/status/<service_id>', methods=['GET'])
 def login_status(service_id):
     wechat_info = WechatInfo.query.filter_by(service_id=service_id).first()
-    return jsonify(wechat_info=wechat_info), 200
+    if wechat_info:
+        return jsonify(login_status=wechat_info.login_status), 200
+    else:
+        return jsonify(msg='not login'), 204
 
 
 @api_v1.route('/chat/records/<wechat_id>', methods=['GET'])

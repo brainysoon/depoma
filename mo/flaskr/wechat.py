@@ -17,6 +17,7 @@ class wechat_login(threading.Thread):
         self.service_id = service_id
         self.pic_dir = env.QR_SAVE_DIR_PRE_FIX + service_id + '.png'
         self.wechat_instance = itchat.new_instance()
+        self.wechat_info = None
 
     def run(self):
         print("开始线程：" + self.name)
@@ -33,7 +34,8 @@ class wechat_login(threading.Thread):
 
         def record_chat(msg):
             with app.app_context():
-                wechat_record_instance = WechatRecord(self.wechat_info.wechat_id, self.service_id, msg)
+                wechat_record_instance = WechatRecord(self.wechat_instance.loginInfo['User'].Uin,
+                                                      self.service_id, msg)
                 db.session.add(wechat_record_instance)
                 db.session.commit()
 
