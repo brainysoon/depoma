@@ -22,14 +22,14 @@ def login():
 
     pic_link = env.server_resources_prefix() + '/qr/' + service_id + '.png'
     time.sleep(2)
-    return jsonify(link=pic_link, service_id=service_id), 201
+    return jsonify(link=pic_link, serviceId=service_id), 201
 
 
 @api_v1.route('/login/status/<service_id>', methods=['GET'])
 def login_status(service_id):
     wechat_info = WechatInfo.query.filter_by(service_id=service_id).first()
     if wechat_info:
-        return jsonify(login_status=wechat_info.login_status), 200
+        return jsonify(loginStatus=wechat_info.login_status), 200
     else:
         return jsonify(msg='not login'), 404
 
@@ -45,6 +45,6 @@ def chat_records(wechat_id):
 def wechat_info(service_id):
     wechat_info_instance = WechatInfo.query.filter_by(service_id=service_id).first()
     if wechat_info_instance:
-        return jsonify(wechat_info=wechat_info_instance.to_dict()), 200
+        return jsonify(wechatInfo=wechat_info_instance.to_dict()), 200
     else:
         return jsonify(msg='not login'), 404
