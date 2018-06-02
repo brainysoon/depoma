@@ -4,18 +4,33 @@ import datetime
 
 class WechatInfo(db.Model):
     __tablename__ = 'wechat_info'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    wechat_id = db.Column(db.String(64), unique=True)
-    login_status = db.Column(db.Integer)
-    state = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
+    wechat_id = db.Column(db.String(128), unique=True, nullable=False)
+    service_id = db.Column(db.String(64), unique=True, nullable=False)
+    nick_name = db.Column(db.String(64), nullable=False)
+    signature = db.Column(db.String(128), nullable=False)
+    sex = db.Column(db.Integer, nullable=False)
+    avatar_url = db.Column(db.String(256), nullable=False)
+    login_status = db.Column(db.Integer, nullable=False)
+    gmt_modified = db.Column(db.DateTime, nullable=False)
+    gmt_create = db.Column(db.DateTime, nullable=False)
+    state = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, wechat_id):
-        self.wechat_id = wechat_id
-        self.login_status = 0
+    def __init__(self, login_info, service_id):
+        self.service_id = service_id
+        user = login_info['User']
+        self.wechat_id = user.Uin
+        self.nick_name = user.NickName
+        self.signature = user.Signature
+        self.sex = user.Sex
+        self.avatar_url = 'https://wx2.qq.com' + user.HeadImgUrl
+        self.login_status = 1
+        self.gmt_create = datetime.datetime.now()
+        self.gmt_modified = datetime.datetime.now()
         self.state = 1
 
     def __repr__(self):
-        return '<wechat_info %r>' % self.wechat_id
+        return '<wechat_info %r>' % self.user_name
 
 
 class WechatRecord(db.Model):

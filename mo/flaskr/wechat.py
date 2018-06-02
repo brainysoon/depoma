@@ -7,14 +7,15 @@ from . import itchat
 from .core import app
 from .extensions import db
 from .models import WechatInfo, WechatRecord
+import datetime
 
 
 class wechat_login(threading.Thread):
-    def __init__(self, name, wechat_id):
+    def __init__(self, name, service_id):
         threading.Thread.__init__(self)
-        self.name = name + wechat_id
-        self.wechat_id = wechat_id
-        self.pic_dir = env.QR_SAVE_DIR_PRE_FIX + wechat_id + '.png'
+        self.name = name + service_id
+        self.service_id = service_id
+        self.pic_dir = env.QR_SAVE_DIR_PRE_FIX + service_id + '.png'
         self.wechat_instance = itchat.new_instance()
 
     def run(self):
@@ -32,7 +33,7 @@ class wechat_login(threading.Thread):
 
         def record_chat(msg):
             with app.app_context():
-                wechat_record_instance = WechatRecord(self.wechat_id, self.wechat_id, msg)
+                wechat_record_instance = WechatRecord(self.wechat_info.wechat_id, self.service_id, msg)
                 db.session.add(wechat_record_instance)
                 db.session.commit()
 
@@ -41,13 +42,21 @@ class wechat_login(threading.Thread):
 
     def login_callback(self):
         with app.app_context():
-            wechat_instance = WechatInfo.query.filter_by(wechat_id=self.wechat_id).first()
-            wechat_instance.login_status = 1
+            uin = self.wechat_instance.loginInfo['User'].Uin
+            wechat_info_instance = WechatInfo.query.filter_by(wechat_id=uin).first()
+            if wechat_info_instance:
+                wechat_info_instance.login_status = 1
+                wechat_info_instance.service_id = self.service_id
+                wechat_info_instance.gmt_modified = datetime.datetime.now()
+            else:
+                wechat_info_instance = WechatInfo(self.wechat_instance.loginInfo, self.service_id)
+                db.session.add(wechat_info_instance)
             db.session.commit()
+            self.wechat_info = wechat_info_instance
 
     def logout_callback(self):
         with app.app_context():
-            wechat_instance = WechatInfo.query.filter_by(wechat_id=self.wechat_id).first()
+            wechat_instance = WechatInfo.query.filter_by(wechat_id=self.wechat_info.wechat_id).first()
             wechat_instance.login_status = 0
             db.session.commit()
 
