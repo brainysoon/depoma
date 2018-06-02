@@ -81,7 +81,7 @@ class WechatRecord(db.Model):
             id=self.id,
             wechatId=self.wechat_id,
             robotId=self.robot_id,
-            toUserName=self.to_nick_name,
+            toNickName=self.to_nick_name,
             toRemarkName=self.to_remark_name,
             chatContent=self.chat_content,
             replyContent=self.reply_content,
