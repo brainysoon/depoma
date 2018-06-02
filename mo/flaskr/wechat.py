@@ -6,7 +6,7 @@ from . import env
 from . import itchat
 from .core import app
 from .extensions import db
-from .models import WechatInfo
+from .models import WechatInfo, WechatRecord
 
 
 class wechat_login(threading.Thread):
@@ -24,10 +24,17 @@ class wechat_login(threading.Thread):
 
         @self.wechat_instance.msg_register(itchat.content.TEXT)
         def tuling_reply(msg):
-            default_reply = 'I received: ' + msg['Text']
-            print(default_reply)
-            reply = tuling_response(msg['Text'])
-            return reply or default_reply
+            default_msg = 'I received: ' + msg['Text']
+            tuling_msg = tuling_response(msg['Text'])
+            reply = tuling_msg or default_msg
+            record_chat(reply)
+            return reply
+
+        def record_chat(msg):
+            with app.app_context():
+                wechat_record_instance = WechatRecord(self.wechat_id, self.wechat_id, msg)
+                db.session.add(wechat_record_instance)
+                db.session.commit()
 
         self.wechat_instance.run()
         print("退出线程：" + self.name)
