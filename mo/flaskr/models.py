@@ -35,15 +35,15 @@ class WechatInfo(db.Model):
     def to_dict(self):
         return dict(
             id=self.id,
-            service_id=self.service_id,
-            wechat_id=self.wechat_id,
-            nick_name=self.nick_name,
+            serviceId=self.service_id,
+            wechatId=self.wechat_id,
+            nickName=self.nick_name,
             signature=self.signature,
             sex=self.sex,
-            avatar_url=self.avatar_url,
-            login_status=self.login_status,
-            gmt_modified=self.gmt_modified,
-            gmt_create=self.gmt_create,
+            avatarUrl=self.avatar_url,
+            loginStatus=self.login_status,
+            gmtModified=self.gmt_modified,
+            gmtCreate=self.gmt_create,
             state=self.state
         )
 
@@ -79,12 +79,12 @@ class WechatRecord(db.Model):
     def to_dict(self):
         return dict(
             id=self.id,
-            wechat_id=self.wechat_id,
-            robot_id=self.robot_id,
-            to_user_name=self.to_nick_name,
-            to_remark_name=self.to_remark_name,
-            chat_content=self.chat_content,
-            reply_content=self.reply_content,
-            gmt_sent=str(self.gmt_sent),
+            wechatId=self.wechat_id,
+            robotId=self.robot_id,
+            toUserName=self.to_nick_name,
+            toRemarkName=self.to_remark_name,
+            chatContent=self.chat_content,
+            replyContent=self.reply_content,
+            gmtSent=str(self.gmt_sent),
             status=self.status
         )
