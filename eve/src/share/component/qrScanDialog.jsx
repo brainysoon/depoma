@@ -54,8 +54,8 @@ const styles = (theme) => ({
         backgroundColor: theme.palette.background.default,
     },
     qr: {
-        width: '100%',
-        height: '100%'
+        width: '80%',
+        height: '80%'
     },
     qrContainer: {
         display: 'flex',
