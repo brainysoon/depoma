@@ -10,7 +10,7 @@ from . import env
 from . import models
 from . import wechat
 from .extensions import db
-from .models import WechatInfo
+from .models import WechatInfo, WechatRecord
 
 api_v1 = Blueprint('api_v1', __name__, url_prefix='/api/v1/')
 CORS(api_v1)
@@ -36,3 +36,10 @@ def login():
 def login_status(wechat_id):
     wechat_instance = WechatInfo.query.filter_by(wechat_id=wechat_id).first()
     return jsonify(status=wechat_instance.login_status), 200
+
+
+@api_v1.route('/chat/records/<wechat_id>', methods=['GET'])
+def chat_records(wechat_id):
+    wechat_records = WechatRecord.query.filter_by(wechat_id=wechat_id).all()
+    records = [record.to_dict() for record in wechat_records]
+    return jsonify(records=records), 200

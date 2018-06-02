@@ -35,4 +35,14 @@ class WechatRecord(db.Model):
         self.status = 1
 
     def __repr__(self):
-        return '<wechat_record %r>' % self.wechat_id
+        return '<wechat_record %r>' % (str(self.id) + self.wechat_id)
+
+    def to_dict(self):
+        return dict(
+            id=self.id,
+            wechat_id=self.wechat_id,
+            robot_id=self.robot_id,
+            chat_content=self.chat_content,
+            gmt_sent=str(self.gmt_sent),
+            status=self.status
+        )
