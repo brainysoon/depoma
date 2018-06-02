@@ -4,18 +4,21 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import FrameContainer from 'src/share/component/frameContainer';
-import {toggleMenuStatus, handleBottomNavClick} from 'src/share/action/sharedActions';
+import {toggleMenuStatus, handleBottomNavClick, loadChatRecords} from 'src/share/action/sharedActions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {withStyles} from "@material-ui/core/styles/index";
+import {getWechatId} from 'src/log/selector/logPageSelector';
 
 type Props = {
     menuStatus: boolean,
     bottomNavCheckedIndex: number,
     toggleMenuStatus: () => void,
     handleBottomNavClick: (number) => void,
-    push: (string) => void
+    push: (string) => void,
+    loadChatRecords: (string) => void,
+    wechatId: string
 };
 
 
@@ -24,14 +27,19 @@ const styles = theme => ({
         width: '100%',
         maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
-        marginBottom:30
+        marginBottom: 30
     },
 });
 
 class LogPage extends React.Component<Props> {
 
+    componentDidMount() {
+        const {loadChatRecords, wechatId} = this.props;
+        loadChatRecords(wechatId);
+    }
+
     render() {
-        const {classes,...frameContainerProps} = this.props;
+        const {classes, ...frameContainerProps} = this.props;
 
         return (
             <FrameContainer {...frameContainerProps}>
@@ -92,13 +100,15 @@ class LogPage extends React.Component<Props> {
 const mapStateToProps = (state) => {
     return {
         menuStatus: state.app.menuStatus,
-        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex
+        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex,
+        wechatId: getWechatId(state)
     }
 };
 
 const mapDispatchToProps = {
     toggleMenuStatus: toggleMenuStatus,
     handleBottomNavClick: handleBottomNavClick,
+    loadChatRecords: loadChatRecords,
     push: push
 };
 

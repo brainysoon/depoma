@@ -5,7 +5,8 @@ import {
     LOAD_WECHAT_LOGIN_PAYLOAD,
     TOGGLE_MENU_STATUS,
     LOAD_WECHAT_LOGIN_STATE,
-    LOAD_WECHAT_INFO
+    LOAD_WECHAT_INFO,
+    LOAD_CHAT_RECORDS
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -71,9 +72,26 @@ export const loadWechatInfo = (serviceId) => {
                 }
             }
         }).then((response) => {
-
         }).catch((error) => {
             console.log(error);
         })
+    }
+};
+
+export const loadChatRecords = (wechatId) => {
+
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_CHAT_RECORDS,
+            payload: {
+                request: {
+                    url: '/chat/records/' + wechatId,
+                    method: 'GET'
+                }
+            }
+        }).then((response) => {
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 };

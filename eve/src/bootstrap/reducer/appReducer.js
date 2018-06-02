@@ -4,14 +4,16 @@ import {
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
     LOAD_WECHAT_LOGIN_PAYLOAD_SUCCESS,
     LOAD_WECHAT_LOGIN_STATE_SUCCESS,
-    LOAD_WECHAT_INFO_SUCCESS
+    LOAD_WECHAT_INFO_SUCCESS,
+    LOAD_CHAT_RECORDS_SUCCESS
 } from 'src/share/actionType/sharedActionTypes';
 import {
     DEFAULT_BOTTOM_NAV_CHECKED_INDEX,
     DEFAULT_MENU_STATUS,
     DEFAULT_WECHAT_LOGIN_STATE,
     DEFAULT_WECHAT_LOGIN_PAYLOAD,
-    DEFAULT_WECHAT_INFO
+    DEFAULT_WECHAT_INFO,
+    DEFAULT_CHAT_RECORDS
 } from 'src/share/constant/sharedConstants';
 
 const menuStatus = (state = DEFAULT_MENU_STATUS, action) => {
@@ -63,12 +65,22 @@ const wechatInfo = (state = DEFAULT_WECHAT_INFO, action) => {
     }
 };
 
+const chatRecords = (state = DEFAULT_CHAT_RECORDS, action) => {
+    switch (action.type) {
+        case LOAD_CHAT_RECORDS_SUCCESS:
+            return action.payload.data.records;
+        default:
+            return state;
+    }
+};
+
 const appReducer = combineReducers({
     bottomNavCheckedIndex,
     menuStatus,
     wechatLoginState,
     wechatLoginPayload,
-    wechatInfo
+    wechatInfo,
+    chatRecords
 });
 
 export default appReducer;

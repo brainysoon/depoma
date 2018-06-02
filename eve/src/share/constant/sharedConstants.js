@@ -3,3 +3,4 @@ export const DEFAULT_MENU_STATUS = false;
 export const DEFAULT_WECHAT_LOGIN_STATE = false;
 export const DEFAULT_WECHAT_LOGIN_PAYLOAD = null;
 export const DEFAULT_WECHAT_INFO = null;
+export const DEFAULT_CHAT_RECORDS = null;
