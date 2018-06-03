@@ -34,7 +34,8 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         marginBottom: 40,
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
     card: {
         maxWidth: 400,
