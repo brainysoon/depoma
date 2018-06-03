@@ -6,7 +6,8 @@ import {
     TOGGLE_MENU_STATUS,
     LOAD_WECHAT_LOGIN_STATE,
     LOAD_WECHAT_INFO,
-    LOAD_CHAT_RECORDS
+    LOAD_CHAT_RECORDS,
+    PUT_WECHAT_SAMPLE
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -94,4 +95,27 @@ export const loadChatRecords = (wechatId) => {
             console.log(error);
         });
     }
+};
+
+export const putWechatSample = (contentFile, wechatId) => {
+
+    return (dispatch) => {
+        dispatch({
+            type: PUT_WECHAT_SAMPLE,
+            payload: {
+                request: {
+                    url: '/wechat/sample/add',
+                    method: 'POST',
+                    data: {
+                        wechatId,
+                        contentFile
+                    }
+                }
+            }
+        }).then((response) => {
+
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
 };

@@ -19,13 +19,15 @@ import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import UploadContentDialog from 'src/content/component/uploadContentDialog';
+import {getWechatId} from 'src/share/selector/sharedSelectors';
 
 type Props = {
     menuStatus: boolean,
     bottomNavCheckedIndex: number,
     toggleMenuStatus: () => void,
     handleBottomNavClick: (number) => void,
-    push: (string) => void
+    push: (string) => void,
+    wechatId: string
 };
 
 
@@ -53,12 +55,15 @@ class ContentPage extends React.Component<Props> {
     }
 
     onAddContentButtonClick = () => {
-        console.log('here')
         this.setState({showAddDialog: true})
     };
 
+    onContentFileUploadCompleted = () => {
+        this.setState({showAddDialog: false})
+    };
+
     render() {
-        const {classes, ...frameContainerProps} = this.props;
+        const {classes, wechatId, ...frameContainerProps} = this.props;
         const {showAddDialog} = this.state;
 
         return (
@@ -137,13 +142,15 @@ class ContentPage extends React.Component<Props> {
                         </ListItem>
 
                     </List>
-                    <Tooltip title="FAB 'position: absolute;'">
+                    <Tooltip title="上传常用聊天内容">
                         <Button variant="fab" color="primary" className={classes.absolute}
                                 onClick={this.onAddContentButtonClick}>
                             <AddIcon/>
                         </Button>
                     </Tooltip>
-                    <UploadContentDialog showAddDialog={showAddDialog}/>
+                    <UploadContentDialog wechatId={wechatId}
+                                         onContentFileUploadCompleted={this.onContentFileUploadCompleted}
+                                         showAddDialog={showAddDialog}/>
                 </div>
             </FrameContainer>);
     }
@@ -152,7 +159,8 @@ class ContentPage extends React.Component<Props> {
 const mapStateToProps = (state) => {
     return {
         menuStatus: state.app.menuStatus,
-        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex
+        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex,
+        wechatId: getWechatId(state)
     }
 };
 

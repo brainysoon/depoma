@@ -53,7 +53,7 @@ def wechat_info(service_id):
 
 @api_v1.route('/wechat/sample/add', methods=['POST'])
 def add_wechat_sample():
-    wechat_id = request.form['wechat_id']
+    wechat_id = request.form['wechatId']
     if 'contentFile' not in request.files:
         return jsonify(msg='file not present'), 406
 

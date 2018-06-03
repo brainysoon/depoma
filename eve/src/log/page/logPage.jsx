@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {withStyles} from "@material-ui/core/styles/index";
-import {getWechatId} from 'src/log/selector/logPageSelector';
+import {getWechatId} from 'src/share/selector/sharedSelectors';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 type Props = {
