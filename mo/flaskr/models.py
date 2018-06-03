@@ -130,7 +130,7 @@ class WechatRobot(db.Model):
     robot_model_addr = db.Column(db.String(128), nullable=False)
     gmt_modified = db.Column(db.DateTime, nullable=False)
     gmt_create = db.Column(db.DateTime, nullable=False)
-    status = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.Integer, nullable=False)
 
     robot_count = 0
 
@@ -153,5 +153,34 @@ class WechatRobot(db.Model):
             robotModelAddr=self.robot_model_addr,
             gmtModified=self.gmt_modified,
             gmtCreate=self.gmt_create,
+            status=self.status
+        )
+
+
+class ServiceLog(db.Model):
+    __tablename__ = 'service_log'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
+    wechat_id = db.Column(db.String(128), nullable=False)
+    service_id = db.Column(db.String(64), nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False)
+    end_time = db.Column(db.DateTime, nullable=True)
+    status = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, wechat_id, service_id):
+        self.wechat_id = wechat_id
+        self.service_id = service_id
+        self.start_time = datetime.datetime.now()
+        self.status = 1
+
+    def __repr__(self):
+        return '<service_log %r>' % (str(self.id) + self.wechat_id + self.service_id)
+
+    def to_dict(self):
+        return dict(
+            id=self.id,
+            wechatId=self.wechat_id,
+            serviceId=self.service_id,
+            startTime=self.start_time,
+            endTime=self.end_time,
             status=self.status
         )

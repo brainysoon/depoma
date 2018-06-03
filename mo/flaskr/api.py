@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 from . import env
 from . import wechat
-from .models import WechatInfo, WechatRecord, WechatSample, WechatRobot
+from .models import WechatInfo, WechatRecord, WechatSample, WechatRobot, ServiceLog
 from .extensions import db
 
 api_v1 = Blueprint('api_v1', __name__, url_prefix='/api/v1/')
@@ -87,3 +87,10 @@ def list_wechat_robots(wechat_id):
     wechat_robots = WechatRobot.query.filter_by(wechat_id=wechat_id, status=1).all()
     robots = [robot.to_dict() for robot in wechat_robots]
     return jsonify(robots=robots), 200
+
+
+@api_v1.route('/service/logs/<wechat_id>', methods=['GET'])
+def list_service_logs(wechat_id):
+    service_logs = ServiceLog.query.filter_by(wechat_id=wechat_id, status=1).all()
+    logs = [log.to_dict() for log in service_logs]
+    return jsonify(serviceLogs=logs), 200

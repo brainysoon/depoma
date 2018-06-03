@@ -6,7 +6,7 @@ from . import env
 from . import itchat
 from .core import app
 from .extensions import db
-from .models import WechatInfo, WechatRecord
+from .models import WechatInfo, WechatRecord, ServiceLog
 import datetime
 
 
@@ -53,6 +53,9 @@ class wechat_login(threading.Thread):
             else:
                 wechat_info_instance = WechatInfo(self.wechat_instance.loginInfo, self.service_id)
                 db.session.add(wechat_info_instance)
+
+            service_log_instance = ServiceLog(wechat_info_instance.wechat_id, wechat_info_instance.service_id)
+            db.session.add(service_log_instance)
             db.session.commit()
             self.wechat_info = wechat_info_instance
 
@@ -60,6 +63,9 @@ class wechat_login(threading.Thread):
         with app.app_context():
             wechat_instance = WechatInfo.query.filter_by(wechat_id=self.wechat_info.wechat_id).first()
             wechat_instance.login_status = 0
+
+            service_log_instance = ServiceLog.query.filter_by(service_id=self.wechat_info.service_id).first()
+            service_log_instance.end_time = datetime.datetime.now()
             db.session.commit()
 
 
