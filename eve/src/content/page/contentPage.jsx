@@ -18,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
+import UploadContentDialog from 'src/content/component/uploadContentDialog';
 
 type Props = {
     menuStatus: boolean,
@@ -46,8 +47,19 @@ const styles = theme => ({
 
 class ContentPage extends React.Component<Props> {
 
+    constructor(props) {
+        super(props);
+        this.state = {showAddDialog: false}
+    }
+
+    onAddContentButtonClick = () => {
+        console.log('here')
+        this.setState({showAddDialog: true})
+    };
+
     render() {
         const {classes, ...frameContainerProps} = this.props;
+        const {showAddDialog} = this.state;
 
         return (
             <FrameContainer {...frameContainerProps}>
@@ -126,10 +138,12 @@ class ContentPage extends React.Component<Props> {
 
                     </List>
                     <Tooltip title="FAB 'position: absolute;'">
-                        <Button variant="fab" color="primary" className={classes.absolute}>
-                            <AddIcon />
+                        <Button variant="fab" color="primary" className={classes.absolute}
+                                onClick={this.onAddContentButtonClick}>
+                            <AddIcon/>
                         </Button>
                     </Tooltip>
+                    <UploadContentDialog showAddDialog={showAddDialog}/>
                 </div>
             </FrameContainer>);
     }
