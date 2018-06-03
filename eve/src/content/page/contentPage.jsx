@@ -4,7 +4,12 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import FrameContainer from 'src/share/component/frameContainer';
-import {toggleMenuStatus, handleBottomNavClick, loadWechatSamples} from 'src/share/action/sharedActions';
+import {
+    toggleMenuStatus,
+    handleBottomNavClick,
+    loadWechatSamples,
+    deleteWechatSample
+} from 'src/share/action/sharedActions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -30,7 +35,8 @@ type Props = {
     push: (string) => void,
     loadWechatSamples: (string) => void,
     wechatId: string,
-    wechatSamples: Array<*>
+    wechatSamples: Array<*>,
+    deleteWechatSample: (string, string) => void
 };
 
 
@@ -79,10 +85,15 @@ class ContentPage extends React.Component<Props> {
         loadWechatSamples(wechatId);
     };
 
+    onDeleteWechatSample = (sampleId) => {
+        const {deleteWechatSample, wechatId} = this.props;
+        deleteWechatSample(wechatId, sampleId);
+    };
+
     renderWechatSamples = (wechatSamples) => {
         return (<List>
-            {wechatSamples.map(sample => {
-                return (<ListItem>
+            {wechatSamples.map((sample, index) => {
+                return (<ListItem key={index}>
                     <ListItemAvatar>
                         <Avatar>
                             <FolderIcon/>
@@ -91,7 +102,9 @@ class ContentPage extends React.Component<Props> {
                     <ListItemText
                         primary={sample.sampleAddr} secondary={sample.gmtModified}/>
                     <ListItemSecondaryAction>
-                        <IconButton aria-label="Delete">
+                        <IconButton aria-label="Delete" onClick={() => {
+                            this.onDeleteWechatSample(sample.id);
+                        }}>
                             <DeleteIcon/>
                         </IconButton>
                     </ListItemSecondaryAction>
@@ -136,6 +149,7 @@ const mapDispatchToProps = {
     toggleMenuStatus: toggleMenuStatus,
     handleBottomNavClick: handleBottomNavClick,
     loadWechatSamples: loadWechatSamples,
+    deleteWechatSample: deleteWechatSample,
     push: push
 };
 

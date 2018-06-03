@@ -75,6 +75,11 @@ function Transition(props) {
 
 class QrScanDialog extends React.Component<Props> {
 
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
     componentDidMount() {
         const {loadWechatLoginPayload, wechatLoginPayload} = this.props;
         _.isEmpty(wechatLoginPayload) && loadWechatLoginPayload();
@@ -84,11 +89,17 @@ class QrScanDialog extends React.Component<Props> {
         const {loadWechatInfo, wechatLoginState, checkWechatLoginState, wechatLoginPayload} = nextProps;
         if (wechatLoginPayload) {
             const serviceId = _.get(wechatLoginPayload, 'serviceId');
-            !wechatLoginState && setInterval(() => {
-                checkWechatLoginState(serviceId)
-            }, 1000);
+            if (!wechatLoginState) {
+                const interval = setInterval(() => {
+                    checkWechatLoginState(serviceId)
+                }, 1000);
+                this.setState({interval});
+            }
 
-            wechatLoginState && loadWechatInfo(serviceId);
+            if (wechatLoginState) {
+                loadWechatInfo(serviceId);
+                window.clearInterval(this.state.interval);
+            }
         }
     }
 
