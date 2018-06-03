@@ -11,7 +11,8 @@ import {
     LOAD_WECHAT_SAMPLES,
     DELETE_WECHAT_SAMPLE,
     LOAD_WECHAT_ROBOTS,
-    LOAD_SERVICE_LOGS
+    LOAD_SERVICE_LOGS,
+    TOGGLE_SETTING
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -205,4 +206,13 @@ export const loadServiceLogs = (wechatId) => {
             console.log(error);
         })
     };
+};
+
+export const toggleSetting = (toggleKey, toggleState) => {
+    return {
+        type: TOGGLE_SETTING,
+        toggles: {
+            [toggleKey]: toggleState
+        }
+    }
 };

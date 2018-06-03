@@ -7,3 +7,4 @@ export const DEFAULT_CHAT_RECORDS = null;
 export const DEFAULT_WECHAT_SAMPLES = null;
 export const DEFAULT_WECHAT_ROBOTS = null;
 export const DEFAULT_SERVICE_LOGS = null;
+export const DEFAULT_TOGGLES = {};

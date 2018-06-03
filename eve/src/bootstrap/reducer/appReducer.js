@@ -8,7 +8,8 @@ import {
     LOAD_CHAT_RECORDS_SUCCESS,
     LOAD_WECHAT_SAMPLES_SUCCESS,
     LOAD_WECHAT_ROBOTS_SUCCESS,
-    LOAD_SERVICE_LOGS_SUCCESS
+    LOAD_SERVICE_LOGS_SUCCESS,
+    TOGGLE_SETTING
 } from 'src/share/actionType/sharedActionTypes';
 import {
     DEFAULT_BOTTOM_NAV_CHECKED_INDEX,
@@ -19,7 +20,8 @@ import {
     DEFAULT_CHAT_RECORDS,
     DEFAULT_WECHAT_SAMPLES,
     DEFAULT_WECHAT_ROBOTS,
-    DEFAULT_SERVICE_LOGS
+    DEFAULT_SERVICE_LOGS,
+    DEFAULT_TOGGLES
 } from 'src/share/constant/sharedConstants';
 
 const menuStatus = (state = DEFAULT_MENU_STATUS, action) => {
@@ -107,6 +109,16 @@ const serviceLogs = (state = DEFAULT_SERVICE_LOGS, action) => {
     }
 };
 
+const toggles = (state = DEFAULT_TOGGLES, action) => {
+    switch (action.type) {
+        case TOGGLE_SETTING:
+            const newState = {...state};
+            return _.merge(newState, action.toggles);
+        default:
+            return state;
+    }
+};
+
 const appReducer = combineReducers({
     bottomNavCheckedIndex,
     menuStatus,
@@ -116,7 +128,8 @@ const appReducer = combineReducers({
     chatRecords,
     wechatSamples,
     wechatRobots,
-    serviceLogs
+    serviceLogs,
+    toggles
 });
 
 export default appReducer;

@@ -173,19 +173,19 @@ class FrameContainer extends React.Component<Props> {
                     </List>
                     <Divider/>
                     <List>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.SETTING, 0)} button>
                             <ListItemIcon>
                                 <SettingsIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.SETTINGS}/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.FEEDBACK, 0)} button>
                             <ListItemIcon>
                                 <FeedbackIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.FEEDBACK}/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.ABOUT, 0)} button>
                             <ListItemIcon>
                                 <InfoIcon/>
                             </ListItemIcon>
