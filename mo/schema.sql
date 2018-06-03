@@ -35,3 +35,16 @@ create table wechat_record
 	constraint wechat_records_id_uindex
 		unique (id)
 );
+
+create table wechat_sample
+(
+	id int unsigned auto_increment
+		primary key,
+	wechat_id varchar(128) not null,
+	sample_addr varchar(128) not null,
+	gmt_modified datetime not null,
+	gmt_create datetime not null,
+	status tinyint unsigned not null,
+	constraint wechat_sample_id_uindex
+		unique (id)
+);
