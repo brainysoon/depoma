@@ -4,9 +4,10 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import FrameContainer from 'src/share/component/frameContainer';
-import {toggleMenuStatus, handleBottomNavClick} from 'src/share/action/sharedActions';
+import {toggleMenuStatus, handleBottomNavClick, loadWechatRobots} from 'src/share/action/sharedActions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import {withStyles} from "@material-ui/core/styles/index";
@@ -16,56 +17,57 @@ type Props = {
     bottomNavCheckedIndex: number,
     toggleMenuStatus: () => void,
     handleBottomNavClick: (number) => void,
-    push: (string) => void
+    push: (string) => void,
+    loadWechatRobots: (string) => void,
+    wechatRobots: Array<*>
 };
 
 const styles = theme => ({
     root: {
         width: '100%',
-        maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
+        marginBottom: 40,
+        display: 'flex',
+        justifyContent: 'center'
     },
+    progress: {
+        marginTop: 80,
+        marginBottom: 80,
+        color: theme.palette.primary.light
+    },
+    contentContainer: {
+        width: '100%'
+    }
 });
 
 class RobotPage extends React.Component<Props> {
 
+    componentDidMount() {
+        const {wechatId, loadWechatRobots} = this.props;
+        loadWechatRobots(wechatId);
+    }
+
+    renderWechatRobots = () => {
+        const {classes, wechatRobots} = this.props;
+
+        return (<List className={classes.contentContainer}>
+            {wechatRobots.map((robot, index) => {
+                return (<ListItem key={index}>
+                    <Avatar src='./eve.jpg'/>
+                    <ListItemText primary={robot.robotName} secondary={robot.gmtModified}/>
+                </ListItem>);
+            })}
+        </List>)
+    }
+
     render() {
-        const {classes, ...frameContainerProps} = this.props;
+        const {classes, wechatRobots, ...frameContainerProps} = this.props;
 
         return (
             <FrameContainer {...frameContainerProps}>
                 <div className={classes.root}>
-                    <List>
-                        <ListItem>
-                            <Avatar src='./eve.jpg'/>
-                            <ListItemText primary="机器人编号：WALLE0101" secondary="2018-05-17 12:13 12"/>
-                        </ListItem>
-                        <ListItem>
-                            <Avatar src='./eve.jpg'/>
-                            <ListItemText primary="机器人编号：WALLE0100" secondary="2018-05-17 11:11 09"/>
-                        </ListItem>
-                        <ListItem>
-                            <Avatar src='./eve.jpg'/>
-                            <ListItemText primary="机器人编号：WALLE0099" secondary="2018-05-17 10:16 14"/>
-                        </ListItem>
-                        <ListItem>
-                            <Avatar src='./eve.jpg'/>
-                            <ListItemText primary="机器人编号：WALLE0098" secondary="2018-05-17 10:09 44"/>
-                        </ListItem>
-                        <ListItem>
-                            <Avatar src='./eve.jpg'/>
-                            <ListItemText primary="机器人编号：WALLE0097" secondary="2018-05-17 09:01 16"/>
-                        </ListItem>
-                        <ListItem>
-                            <Avatar src='./eve.jpg'/>
-                            <ListItemText primary="机器人编号：WALLE0096" secondary="2018-05-17 08:13 07"/>
-                        </ListItem>
-                        <ListItem>
-                            <Avatar src='./eve.jpg'/>
-                            <ListItemText primary="机器人编号：WALLE0095" secondary="2018-05-17 07:50 19"/>
-                        </ListItem>
-
-                    </List>
+                    {wechatRobots ? this.renderWechatRobots() :
+                        <CircularProgress className={classes.progress} thickness={7}/>}
                 </div>
             </FrameContainer>);
     }
@@ -74,13 +76,15 @@ class RobotPage extends React.Component<Props> {
 const mapStateToProps = (state) => {
     return {
         menuStatus: state.app.menuStatus,
-        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex
+        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex,
+        wechatRobots: state.app.wechatRobots
     }
 };
 
 const mapDispatchToProps = {
     toggleMenuStatus: toggleMenuStatus,
     handleBottomNavClick: handleBottomNavClick,
+    loadWechatRobots: loadWechatRobots,
     push: push
 };
 

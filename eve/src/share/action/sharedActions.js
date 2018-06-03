@@ -8,7 +8,9 @@ import {
     LOAD_WECHAT_INFO,
     LOAD_CHAT_RECORDS,
     PUT_WECHAT_SAMPLE,
-    LOAD_WECHAT_SAMPLES, DELETE_WECHAT_SAMPLE
+    LOAD_WECHAT_SAMPLES,
+    DELETE_WECHAT_SAMPLE,
+    LOAD_WECHAT_ROBOTS
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -163,6 +165,24 @@ export const deleteWechatSample = (wechatId, sampleId) => {
             }).catch((error) => {
                 console.log(error);
             })
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const loadWechatRobots = (wechatId) => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_WECHAT_ROBOTS,
+            payload: {
+                request: {
+                    url: '/wechat/robots/' + wechatId,
+                    method: 'GET',
+                }
+            }
+        }).then((response) => {
+
         }).catch((error) => {
             console.log(error);
         })
