@@ -6,7 +6,13 @@ import {
     TOGGLE_MENU_STATUS,
     LOAD_WECHAT_LOGIN_STATE,
     LOAD_WECHAT_INFO,
-    LOAD_CHAT_RECORDS
+    LOAD_CHAT_RECORDS,
+    PUT_WECHAT_SAMPLE,
+    LOAD_WECHAT_SAMPLES,
+    DELETE_WECHAT_SAMPLE,
+    LOAD_WECHAT_ROBOTS,
+    LOAD_SERVICE_LOGS,
+    TOGGLE_SETTING
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -93,5 +99,120 @@ export const loadChatRecords = (wechatId) => {
         }).catch((error) => {
             console.log(error);
         });
+    }
+};
+
+export const putWechatSample = (contentFile, wechatId) => {
+
+    return (dispatch) => {
+        dispatch({
+            type: PUT_WECHAT_SAMPLE,
+            payload: {
+                request: {
+                    url: '/wechat/sample/add',
+                    method: 'POST',
+                    data: {
+                        wechatId,
+                        contentFile
+                    }
+                }
+            }
+        }).then((response) => {
+
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const loadWechatSamples = (wechatId) => {
+
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_WECHAT_SAMPLES,
+            payload: {
+                request: {
+                    url: '/wechat/samples/' + wechatId,
+                    method: 'GET',
+                }
+            }
+        }).then((response) => {
+
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const deleteWechatSample = (wechatId, sampleId) => {
+    return (dispatch) => {
+        dispatch({
+            type: DELETE_WECHAT_SAMPLE,
+            payload: {
+                request: {
+                    url: '/wechat/sample/delete/' + sampleId,
+                    method: 'DELETE',
+                }
+            }
+        }).then(() => {
+            dispatch({
+                type: LOAD_WECHAT_SAMPLES,
+                payload: {
+                    request: {
+                        url: '/wechat/samples/' + wechatId,
+                        method: 'GET',
+                    }
+                }
+            }).then((response) => {
+            }).catch((error) => {
+                console.log(error);
+            })
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const loadWechatRobots = (wechatId) => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_WECHAT_ROBOTS,
+            payload: {
+                request: {
+                    url: '/wechat/robots/' + wechatId,
+                    method: 'GET',
+                }
+            }
+        }).then((response) => {
+
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const loadServiceLogs = (wechatId) => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_SERVICE_LOGS,
+            payload: {
+                request: {
+                    url: '/service/logs/' + wechatId,
+                    method: 'GET',
+                }
+            }
+        }).then((response) => {
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const toggleSetting = (toggleKey, toggleState) => {
+    return {
+        type: TOGGLE_SETTING,
+        toggles: {
+            [toggleKey]: toggleState
+        }
     }
 };

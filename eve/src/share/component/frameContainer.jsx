@@ -27,6 +27,7 @@ import TextConstants from 'src/share/constant/textConstants';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {mapMenuIndexToURL} from 'src/share/util/frameContainerUtils';
+import URIConstants from 'src/share/constant/uriConstants';
 
 type Props = {
     menuStatus: boolean,
@@ -98,10 +99,19 @@ const styles = theme => ({
 
 class FrameContainer extends React.Component<Props> {
 
-    _onBottomNavClick = (event, index) => {
+    onBottomNavClick = (event, index) => {
         const {handleBottomNavClick, push} = this.props;
         handleBottomNavClick(index);
         push(mapMenuIndexToURL(index));
+    };
+
+    onSideBarItemClick = (url, index) => {
+        const {push, toggleMenuStatus, handleBottomNavClick} = this.props;
+        return () => {
+            toggleMenuStatus();
+            push(url);
+            handleBottomNavClick(index);
+        };
     };
 
     render() {
@@ -136,25 +146,25 @@ class FrameContainer extends React.Component<Props> {
                 >
                     <Divider/>
                     <List>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.PROFILE, 0)} button>
                             <ListItemIcon>
                                 <AccountCircleIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.PROFILE}/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.ROBOT, 2)} button>
                             <ListItemIcon>
                                 <BugReportIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.AUTO}/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.CONTENT, 1)} button>
                             <ListItemIcon>
                                 <DescriptionIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.CONTENT}/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.LOG, 3)} button>
                             <ListItemIcon>
                                 <ListIcon/>
                             </ListItemIcon>
@@ -163,19 +173,19 @@ class FrameContainer extends React.Component<Props> {
                     </List>
                     <Divider/>
                     <List>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.SETTING, 0)} button>
                             <ListItemIcon>
                                 <SettingsIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.SETTINGS}/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.FEEDBACK, 0)} button>
                             <ListItemIcon>
                                 <FeedbackIcon/>
                             </ListItemIcon>
                             <ListItemText primary={TextConstants.FEEDBACK}/>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem onClick={this.onSideBarItemClick(URIConstants.ABOUT, 0)} button>
                             <ListItemIcon>
                                 <InfoIcon/>
                             </ListItemIcon>
@@ -187,7 +197,7 @@ class FrameContainer extends React.Component<Props> {
                     <BottomNavigation
                         value={bottomNavCheckedIndex}
                         className={classes.bottomBar}
-                        onChange={this._onBottomNavClick}
+                        onChange={this.onBottomNavClick}
                         showLabels
                     >
                         <BottomNavigationAction label={TextConstants.PROFILE} icon={<AccountCircleIcon/>}/>

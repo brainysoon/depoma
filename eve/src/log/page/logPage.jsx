@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {withStyles} from "@material-ui/core/styles/index";
-import {getWechatId} from 'src/log/selector/logPageSelector';
+import {getWechatId} from 'src/share/selector/sharedSelectors';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 type Props = {
@@ -28,7 +28,7 @@ const styles = theme => ({
     root: {
         width: '100%',
         backgroundColor: theme.palette.background.paper,
-        marginBottom: 30,
+        marginBottom: 40,
         display: 'flex',
         justifyContent: 'center'
     },
