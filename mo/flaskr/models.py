@@ -114,7 +114,7 @@ class WechatSample(db.Model):
         return dict(
             id=self.id,
             wechatId=self.wechat_id,
-            samplAddr=self.sample_addr,
+            sampleAddr=self.sample_addr,
             gmtModified=self.gmt_modified,
             gmtCreate=self.gmt_create,
             status=self.status,
