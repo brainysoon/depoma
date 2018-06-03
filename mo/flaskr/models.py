@@ -1,5 +1,6 @@
 from .extensions import db
 import datetime
+from . import env
 
 
 class WechatInfo(db.Model):
@@ -87,4 +88,35 @@ class WechatRecord(db.Model):
             replyContent=self.reply_content,
             gmtSent=str(self.gmt_sent),
             status=self.status
+        )
+
+
+class WechatSample(db.Model):
+    __tablename__ = 'wechat_sample'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
+    wechat_id = db.Column(db.String(128), nullable=False)
+    sample_addr = db.Column(db.String(128), nullable=False)
+    gmt_modified = db.Column(db.DateTime, nullable=False)
+    gmt_create = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, sample_addr, wechat_id):
+        self.wechat_id = wechat_id
+        self.sample_addr = sample_addr
+        self.gmt_modified = datetime.datetime.now()
+        self.gmt_create = datetime.datetime.now()
+        self.status = 1
+
+    def __repr__(self):
+        return '<wechat_sample %r>' % (str(self.id) + self.wechat_id)
+
+    def to_dict(self):
+        return dict(
+            id=self.id,
+            wechatId=self.wechat_id,
+            samplAddr=self.sample_addr,
+            gmtModified=self.gmt_modified,
+            gmtCreate=self.gmt_create,
+            status=self.status,
+            sampleLink=env.server_resources_prefix() + '/sample/' + self.sample_addr
         )
