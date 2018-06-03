@@ -28,7 +28,7 @@ const styles = theme => ({
     root: {
         width: '100%',
         backgroundColor: theme.palette.background.paper,
-        marginBottom: 30,
+        marginBottom: 40,
         display: 'flex',
         justifyContent: 'center'
     },

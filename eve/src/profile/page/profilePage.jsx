@@ -6,14 +6,9 @@ import FrameContainer from 'src/share/component/frameContainer';
 import {handleBottomNavClick, toggleMenuStatus} from 'src/share/action/sharedActions';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {withStyles} from "@material-ui/core/styles/index";
 import red from '@material-ui/core/colors/red';
@@ -30,8 +25,7 @@ const styles = theme => ({
     card: {
         maxWidth: 400,
     },
-    media: {
-    },
+    media: {},
     actions: {
         display: 'flex',
     },
@@ -44,16 +38,16 @@ const styles = theme => ({
 class ProfilePage extends React.Component<Props> {
 
     render() {
-        const {classes, ...frameContainerProps} = this.props;
+        const {classes, wechatInfo, ...frameContainerProps} = this.props;
 
         return (
             <FrameContainer {...frameContainerProps}>
                 <div>
-                    <Card className={classes.card}>
+                    {wechatInfo && <Card className={classes.card}>
                         <CardHeader
                             avatar={
-                                <Avatar aria-label="Recipe" className={classes.avatar}>
-                                    R
+                                <Avatar src={wechatInfo.avatarUrl} aria-label="Recipe" className={classes.avatar}>
+                                    {wechatInfo.id}
                                 </Avatar>
                             }
                             action={
@@ -61,20 +55,14 @@ class ProfilePage extends React.Component<Props> {
                                     <MoreVertIcon/>
                                 </IconButton>
                             }
-                            title="Brainysoon"
-                            subheader="2018-05-27 12:23 12"
+                            title={wechatInfo.nickName}
+                            subheader={wechatInfo.signature}
                         />
                         <CardContent>
                             <div>
                             </div>
                         </CardContent>
-                        <CardMedia
-                            className={classes.media}
-                            component='img'
-                            image="http://t1.mmonly.cc/uploads/allimg/tuku/22534U130-3.jpg"
-                            title="机器人总动员"
-                        />
-                    </Card>
+                    </Card>}
                 </div>
             </FrameContainer>);
     }
@@ -83,7 +71,8 @@ class ProfilePage extends React.Component<Props> {
 const mapStateToProps = (state) => {
     return {
         menuStatus: state.app.menuStatus,
-        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex
+        bottomNavCheckedIndex: state.app.bottomNavCheckedIndex,
+        wechatInfo: state.app.wechatInfo
     }
 };
 

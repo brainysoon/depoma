@@ -45,13 +45,14 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'center',
         width: '100%',
+        marginBottom: 40,
         backgroundColor: theme.palette.background.paper,
     },
     fab: {
         margin: theme.spacing.unit * 2,
     },
     absolute: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing.unit * 10,
         right: theme.spacing.unit * 3,
     },
