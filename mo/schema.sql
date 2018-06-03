@@ -62,3 +62,16 @@ create table wechat_robot
 	constraint wechat_robot_id_uindex
 		unique (id)
 );
+
+create table service_log
+(
+	id int unsigned auto_increment
+		primary key,
+	wechat_id varchar(128) not null,
+	service_id varchar(64) not null,
+	start_time datetime not null,
+	end_time datetime null,
+	status tinyint not null,
+	constraint service_log_id_uindex
+		unique (id)
+);
