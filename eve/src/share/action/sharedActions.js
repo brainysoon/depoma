@@ -7,7 +7,8 @@ import {
     LOAD_WECHAT_LOGIN_STATE,
     LOAD_WECHAT_INFO,
     LOAD_CHAT_RECORDS,
-    PUT_WECHAT_SAMPLE
+    PUT_WECHAT_SAMPLE,
+    LOAD_WECHAT_SAMPLES
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -110,6 +111,25 @@ export const putWechatSample = (contentFile, wechatId) => {
                         wechatId,
                         contentFile
                     }
+                }
+            }
+        }).then((response) => {
+
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const loadWechatSamples = (wechatId) => {
+
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_WECHAT_SAMPLES,
+            payload: {
+                request: {
+                    url: '/wechat/samples/' + wechatId,
+                    method: 'GET',
                 }
             }
         }).then((response) => {
