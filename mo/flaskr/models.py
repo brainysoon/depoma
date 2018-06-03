@@ -120,3 +120,38 @@ class WechatSample(db.Model):
             status=self.status,
             sampleLink=env.server_resources_prefix() + '/sample/' + self.sample_addr
         )
+
+
+class WechatRobot(db.Model):
+    __tablename__ = 'wechat_robot'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
+    wechat_id = db.Column(db.String(128), nullable=False)
+    robot_name = db.Column(db.String(32), nullable=False)
+    robot_model_addr = db.Column(db.String(128), nullable=False)
+    gmt_modified = db.Column(db.DateTime, nullable=False)
+    gmt_create = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.DateTime, nullable=False)
+
+    robot_count = 0
+
+    def __init__(self, wechat_id, robot_model_addr):
+        self.wechat_id = wechat_id
+        self.robot_name = '机器人' + str(WechatRobot.robot_count + 1)
+        self.robot_model_addr = robot_model_addr
+        self.gmt_modified = datetime.datetime.now()
+        self.gmt_create = datetime.datetime.now()
+        self.status = 1
+
+    def __repr__(self):
+        return '<wechat_robot %r>' % (str(self.id) + self.wechat_id)
+
+    def to_dict(self):
+        return dict(
+            id=self.id,
+            wechatId=self.wechat_id,
+            robotName=self.robot_name,
+            robotModelAddr=self.robot_model_addr,
+            gmtModified=self.gmt_modified,
+            gmtCreate=self.gmt_create,
+            status=self.status
+        )
