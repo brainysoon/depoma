@@ -69,6 +69,14 @@ def add_wechat_sample():
 
 @api_v1.route('/wechat/samples/<wechat_id>', methods=['GET'])
 def get_wechat_samples(wechat_id):
-    wechat_samples = WechatSample.query.filter_by(wechat_id=wechat_id).all()
+    wechat_samples = WechatSample.query.filter_by(wechat_id=wechat_id, status=1).all()
     samples = [sample.to_dict() for sample in wechat_samples]
     return jsonify(samples=samples), 200
+
+
+@api_v1.route('/wechat/sample/delete/<sample_id>', methods=['DELETE'])
+def delete_wechat_sample(sample_id):
+    wechat_sample_instance = WechatSample.query.filter_by(id=sample_id).first()
+    wechat_sample_instance.status = 0
+    db.session.commit()
+    return jsonify(sample=wechat_sample_instance.to_dict()), 200
