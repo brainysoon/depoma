@@ -11,6 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import {withStyles} from "@material-ui/core/styles/index";
+import {getWechatId} from 'src/share/selector/sharedSelectors';
 
 type Props = {
     menuStatus: boolean,
@@ -19,7 +20,8 @@ type Props = {
     handleBottomNavClick: (number) => void,
     push: (string) => void,
     loadWechatRobots: (string) => void,
-    wechatRobots: Array<*>
+    wechatRobots: Array<*>,
+    wechatId: string
 };
 
 const styles = theme => ({
@@ -28,7 +30,8 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         marginBottom: 40,
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
     progress: {
         marginTop: 80,
@@ -58,7 +61,7 @@ class RobotPage extends React.Component<Props> {
                 </ListItem>);
             })}
         </List>)
-    }
+    };
 
     render() {
         const {classes, wechatRobots, ...frameContainerProps} = this.props;
@@ -77,6 +80,7 @@ const mapStateToProps = (state) => {
     return {
         menuStatus: state.app.menuStatus,
         bottomNavCheckedIndex: state.app.bottomNavCheckedIndex,
+        wechatId: getWechatId(state),
         wechatRobots: state.app.wechatRobots
     }
 };

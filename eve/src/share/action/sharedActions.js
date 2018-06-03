@@ -10,7 +10,8 @@ import {
     PUT_WECHAT_SAMPLE,
     LOAD_WECHAT_SAMPLES,
     DELETE_WECHAT_SAMPLE,
-    LOAD_WECHAT_ROBOTS
+    LOAD_WECHAT_ROBOTS,
+    LOAD_SERVICE_LOGS
 } from 'src/share/actionType/sharedActionTypes';
 
 export const toggleMenuStatus = () => {
@@ -183,6 +184,23 @@ export const loadWechatRobots = (wechatId) => {
             }
         }).then((response) => {
 
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+};
+
+export const loadServiceLogs = (wechatId) => {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_SERVICE_LOGS,
+            payload: {
+                request: {
+                    url: '/service/logs/' + wechatId,
+                    method: 'GET',
+                }
+            }
+        }).then((response) => {
         }).catch((error) => {
             console.log(error);
         })
