@@ -43,8 +43,8 @@ class WechatInfo(db.Model):
             sex=self.sex,
             avatarUrl=self.avatar_url,
             loginStatus=self.login_status,
-            gmtModified=self.gmt_modified,
-            gmtCreate=self.gmt_create,
+            gmtModified=str(self.gmt_modified),
+            gmtCreate=str(self.gmt_create),
             state=self.state
         )
 
@@ -115,8 +115,8 @@ class WechatSample(db.Model):
             id=self.id,
             wechatId=self.wechat_id,
             sampleAddr=self.sample_addr,
-            gmtModified=self.gmt_modified,
-            gmtCreate=self.gmt_create,
+            gmtModified=str(self.gmt_modified),
+            gmtCreate=str(self.gmt_create),
             status=self.status,
             sampleLink=env.server_resources_prefix() + '/sample/' + self.sample_addr
         )
@@ -151,8 +151,8 @@ class WechatRobot(db.Model):
             wechatId=self.wechat_id,
             robotName=self.robot_name,
             robotModelAddr=self.robot_model_addr,
-            gmtModified=self.gmt_modified,
-            gmtCreate=self.gmt_create,
+            gmtModified=str(self.gmt_modified),
+            gmtCreate=str(self.gmt_create),
             status=self.status
         )
 
@@ -180,7 +180,7 @@ class ServiceLog(db.Model):
             id=self.id,
             wechatId=self.wechat_id,
             serviceId=self.service_id,
-            startTime=self.start_time,
-            endTime=self.end_time,
+            startTime=str(self.start_time),
+            endTime=str(self.end_time),
             status=self.status
         )
