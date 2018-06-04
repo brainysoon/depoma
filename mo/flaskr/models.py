@@ -165,6 +165,7 @@ class ServiceLog(db.Model):
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=True)
     status = db.Column(db.Integer, nullable=False)
+    __mapper_args__ = {"order_by": start_time.desc()}
 
     def __init__(self, wechat_id, service_id):
         self.wechat_id = wechat_id
