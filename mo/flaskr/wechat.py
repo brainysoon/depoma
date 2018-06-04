@@ -61,10 +61,10 @@ class wechat_login(threading.Thread):
 
     def logout_callback(self):
         with app.app_context():
-            wechat_instance = WechatInfo.query.filter_by(wechat_id=self.wechat_info.wechat_id).first()
+            uin = self.wechat_instance.loginInfo['User'].Uin
+            wechat_instance = WechatInfo.query.filter_by(wechat_id=uin).first()
             wechat_instance.login_status = 0
-
-            service_log_instance = ServiceLog.query.filter_by(service_id=self.wechat_info.service_id).first()
+            service_log_instance = ServiceLog.query.filter_by(service_id=self.service_id).first()
             service_log_instance.end_time = datetime.datetime.now()
             db.session.commit()
 

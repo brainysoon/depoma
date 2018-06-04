@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import FrameContainer from 'src/share/component/frameContainer';
-import {handleBottomNavClick, toggleMenuStatus, loadServiceLogs} from 'src/share/action/sharedActions';
+import {handleBottomNavClick, toggleMenuStatus} from 'src/share/action/sharedActions';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -24,7 +24,6 @@ type Props = {
     toggleMenuStatus: () => void,
     handleBottomNavClick: (number) => void,
     push: (string) => void,
-    loadServiceLogs: (string) => void,
     wechatId: (string) => void
 };
 
@@ -58,11 +57,6 @@ const styles = theme => ({
 });
 
 class ProfilePage extends React.Component<Props> {
-
-    componentDidMount() {
-        const {wechatId, loadServiceLogs} = this.props;
-        loadServiceLogs(wechatId);
-    }
 
     renderServiceLogs = () => {
         const {classes, serviceLogs} = this.props;
@@ -124,7 +118,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     toggleMenuStatus: toggleMenuStatus,
     handleBottomNavClick: handleBottomNavClick,
-    loadServiceLogs: loadServiceLogs,
     push: push
 };
 

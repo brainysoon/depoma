@@ -18,7 +18,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {loadWechatLoginPayload, checkWechatLoginState, loadWechatInfo} from 'src/share/action/sharedActions';
+import {
+    loadWechatLoginPayload,
+    checkWechatLoginState,
+    loadWechatInfo
+} from 'src/share/action/sharedActions';
 
 type Props = {
     wechatLoginState: boolean,
@@ -86,7 +90,10 @@ class QrScanDialog extends React.Component<Props> {
     }
 
     componentWillReceiveProps(nextProps: Props) {
-        const {loadWechatInfo, wechatLoginState, checkWechatLoginState, wechatLoginPayload} = nextProps;
+        const {
+            loadWechatInfo, wechatLoginState,
+            checkWechatLoginState, wechatLoginPayload
+        } = nextProps;
         if (wechatLoginPayload) {
             const serviceId = _.get(wechatLoginPayload, 'serviceId');
             if (!wechatLoginState) {

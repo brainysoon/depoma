@@ -1,5 +1,5 @@
 // @flow
-
+import _ from 'lodash';
 import {
     BOTTOM_NAV_CHECKED_INDEX_CHANGE,
     LOAD_WECHAT_LOGIN_PAYLOAD,
@@ -78,6 +78,20 @@ export const loadWechatInfo = (serviceId) => {
                 }
             }
         }).then((response) => {
+
+            const wechatId = _.get(response, 'payload.data.wechatInfo.wechatId');
+            dispatch({
+                type: LOAD_SERVICE_LOGS,
+                payload: {
+                    request: {
+                        url: '/service/logs/' + wechatId,
+                        method: 'GET',
+                    }
+                }
+            }).then((response) => {
+            }).catch((error) => {
+                console.log(error);
+            })
         }).catch((error) => {
             console.log(error);
         })
