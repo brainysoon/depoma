@@ -8,7 +8,6 @@ from .ml.extract_data import extract_data
 from .ml.service import start_service
 from .ml.train import start_train
 from .models import WechatRobot
-from .extensions import msg_q, reply_q
 
 
 class Chatbot(threading.Thread):
@@ -32,11 +31,14 @@ class Chatbot(threading.Thread):
 
 
 class ChatService(threading.Thread):
-    def __init__(self, model_addr):
+    def __init__(self, model_addr, msg_q, reply_q, single_msg):
         threading.Thread.__init__(self)
         self.model_addr = model_addr
+        self.msg_q = msg_q
+        self.reply_q = reply_q
+        self.single_msg = single_msg
 
     def run(self):
         print("Start chat service...")
-        start_service(self.model_addr, msg_q, reply_q)
+        start_service(self.model_addr, self.msg_q, self.reply_q, self.single_msg)
         print("End chat service...")

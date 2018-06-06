@@ -7,7 +7,6 @@ import sys
 
 import numpy as np
 import tensorflow as tf
-from queue import Queue
 
 # import jieba
 # from nltk.tokenize import word_tokenize
@@ -15,7 +14,7 @@ from queue import Queue
 sys.path.append('..')
 
 
-def start_service(model_addr, msg_q, reply_q):
+def start_service(model_addr, msg_q, reply_q, single_msg):
     """测试不同参数在生成的假数据上的运行结果"""
 
     from .sequence_to_sequence import SequenceToSequence
@@ -81,6 +80,7 @@ def start_service(model_addr, msg_q, reply_q):
             )
             print(pred)
             reply_q.put(pred)
+            single_msg.set()
             # prob = np.exp(prob.transpose())
             print(ws.inverse_transform(x[0]))
             # print(ws.inverse_transform(pred[0]))
