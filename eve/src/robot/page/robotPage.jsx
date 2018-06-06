@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import {withStyles} from "@material-ui/core/styles/index";
 import {getWechatId} from 'src/share/selector/sharedSelectors';
+import {SERVER_RESOURCES_BASE_URL_PRODUCTION} from 'src/share/constant/configConstants';
 
 type Props = {
     menuStatus: boolean,
@@ -52,11 +53,12 @@ class RobotPage extends React.Component<Props> {
 
     renderWechatRobots = () => {
         const {classes, wechatRobots} = this.props;
+        const avatarURL = SERVER_RESOURCES_BASE_URL_PRODUCTION + '/eve.jpg';
 
         return (<List className={classes.contentContainer}>
             {wechatRobots.map((robot, index) => {
                 return (<ListItem key={index}>
-                    <Avatar src='./eve.jpg'/>
+                    <Avatar src={avatarURL}/>
                     <ListItemText primary={robot.robotName} secondary={robot.gmtModified}/>
                 </ListItem>);
             })}

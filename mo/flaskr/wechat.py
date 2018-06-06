@@ -6,8 +6,10 @@ from . import env
 from . import itchat
 from .core import app
 from .extensions import db
-from .models import WechatInfo, WechatRecord, ServiceLog
+from .models import WechatInfo, WechatRecord, ServiceLog, WechatRobot
 import datetime
+from .chatbot import ChatService
+from queue import Queue
 
 
 class wechat_login(threading.Thread):
@@ -18,6 +20,9 @@ class wechat_login(threading.Thread):
         self.pic_dir = env.QR_SAVE_DIR_PRE_FIX + service_id + '.png'
         self.wechat_instance = itchat.new_instance()
         self.wechat_info = None
+        self.msg_q = Queue()
+        self.reply_q = Queue()
+        self.single = threading.Event()
 
     def run(self):
         print("开始线程：" + self.name)
@@ -26,6 +31,10 @@ class wechat_login(threading.Thread):
 
         @self.wechat_instance.msg_register(itchat.content.TEXT)
         def tuling_reply(msg):
+            self.msg_q.put(msg['Text'])
+            self.single.wait()
+            chatbot_reply = self.reply_q.get()
+            # do not using this reply cause it's really bad.
             default_msg = 'I received: ' + msg['Text']
             tuling_msg = tuling_response(msg['Text'])
             reply = tuling_msg or default_msg
@@ -56,6 +65,13 @@ class wechat_login(threading.Thread):
 
             service_log_instance = ServiceLog(wechat_info_instance.wechat_id, wechat_info_instance.service_id)
             db.session.add(service_log_instance)
+
+            wechat_robot_instance = WechatRobot.query.filter_by(wechat_id=uin).first()
+            if wechat_robot_instance:
+                chatbot_instance = ChatService(wechat_robot_instance.robot_model_addr, self.msg_q,
+                                               self.reply_q, self.single)
+                chatbot_instance.start()
+
             db.session.commit()
             self.wechat_info = wechat_info_instance
 

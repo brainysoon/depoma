@@ -10,6 +10,7 @@ from . import env
 from . import wechat
 from .models import WechatInfo, WechatRecord, WechatSample, WechatRobot, ServiceLog
 from .extensions import db
+from .chatbot import Chatbot
 
 api_v1 = Blueprint('api_v1', __name__, url_prefix='/api/v1/')
 CORS(api_v1)
@@ -58,12 +59,17 @@ def add_wechat_sample():
         return jsonify(msg='file not present'), 406
 
     content_file = request.files['contentFile']
-    file_name = str(uuid.uuid1()) + '.txt'
-    content_file.save(env.SAMPLE_SAVE_DIR_PRE_FIX + file_name)
+    file_name = str(uuid.uuid1()) + '.conv'
+    sample_file_path = env.SAMPLE_SAVE_DIR_PRE_FIX + file_name
+    content_file.save(sample_file_path)
 
     wechat_sample_instance = WechatSample(file_name, wechat_id)
     db.session.add(wechat_sample_instance)
     db.session.commit()
+
+    chatbot_instance = Chatbot(wechat_id, sample_file_path)
+    chatbot_instance.start()
+
     return jsonify(sample=wechat_sample_instance.to_dict()), 200
 
 
