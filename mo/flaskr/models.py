@@ -131,6 +131,7 @@ class WechatRobot(db.Model):
     gmt_modified = db.Column(db.DateTime, nullable=False)
     gmt_create = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.Integer, nullable=False)
+    __mapper_args__ = {"order_by": gmt_modified.desc()}
 
     robot_count = 0
 

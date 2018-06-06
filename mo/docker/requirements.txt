@@ -6,3 +6,5 @@ pyqrcode
 pypng
 pymysql
 flask_sqlalchemy
+tensorflow
+tqdm

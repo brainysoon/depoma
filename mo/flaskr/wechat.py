@@ -6,8 +6,10 @@ from . import env
 from . import itchat
 from .core import app
 from .extensions import db
-from .models import WechatInfo, WechatRecord, ServiceLog
+from .models import WechatInfo, WechatRecord, ServiceLog, WechatRobot
 import datetime
+from .extensions import msg_q, reply_q
+from .chatbot import ChatService
 
 
 class wechat_login(threading.Thread):
@@ -26,6 +28,9 @@ class wechat_login(threading.Thread):
 
         @self.wechat_instance.msg_register(itchat.content.TEXT)
         def tuling_reply(msg):
+            msg_q.put(msg['Text'])
+            chatbot_reply = reply_q.get()
+            print('chatbot_reply:' + chatbot_reply)
             default_msg = 'I received: ' + msg['Text']
             tuling_msg = tuling_response(msg['Text'])
             reply = tuling_msg or default_msg
@@ -56,6 +61,12 @@ class wechat_login(threading.Thread):
 
             service_log_instance = ServiceLog(wechat_info_instance.wechat_id, wechat_info_instance.service_id)
             db.session.add(service_log_instance)
+
+            wechat_robot_instance = WechatRobot.query.filter_by(wechat_id=uin).first()
+            if wechat_robot_instance:
+                chatbot_instance = ChatService(model_addr=wechat_robot_instance.model_addr)
+                chatbot_instance.start()
+
             db.session.commit()
             self.wechat_info = wechat_info_instance
 
