@@ -31,9 +31,10 @@ class wechat_login(threading.Thread):
 
         @self.wechat_instance.msg_register(itchat.content.TEXT)
         def tuling_reply(msg):
-            self.msg_q.put(msg['Text'])
-            self.single.wait()
-            chatbot_reply = self.reply_q.get()
+            # since my server memory is not support this so using tuling instead.
+            # self.msg_q.put(msg['Text'])
+            # self.single.wait()
+            # chatbot_reply = self.reply_q.get()
             # do not using this reply cause it's really bad.
             default_msg = 'I received: ' + msg['Text']
             tuling_msg = tuling_response(msg['Text'])
@@ -66,11 +67,12 @@ class wechat_login(threading.Thread):
             service_log_instance = ServiceLog(wechat_info_instance.wechat_id, wechat_info_instance.service_id)
             db.session.add(service_log_instance)
 
-            wechat_robot_instance = WechatRobot.query.filter_by(wechat_id=uin).first()
-            if wechat_robot_instance:
-                chatbot_instance = ChatService(wechat_robot_instance.robot_model_addr, self.msg_q,
-                                               self.reply_q, self.single)
-                chatbot_instance.start()
+            # the same reason not using this at this time.
+            # wechat_robot_instance = WechatRobot.query.filter_by(wechat_id=uin).first()
+            # if wechat_robot_instance:
+            #     chatbot_instance = ChatService(wechat_robot_instance.robot_model_addr, self.msg_q,
+            #                                    self.reply_q, self.single)
+            #     chatbot_instance.start()
 
             db.session.commit()
             self.wechat_info = wechat_info_instance
