@@ -60,6 +60,7 @@ class WechatRecord(db.Model):
     reply_content = db.Column(db.String(64), nullable=False)
     gmt_sent = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.Integer)
+    __mapper_args__ = {"order_by": gmt_sent.desc()}
 
     def __init__(self, wechat_id, robot_id, msg, reply):
         self.wechat_id = wechat_id
@@ -99,6 +100,7 @@ class WechatSample(db.Model):
     gmt_modified = db.Column(db.DateTime, nullable=False)
     gmt_create = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.Integer, nullable=False)
+    __mapper_args__ = {"order_by": gmt_modified.desc()}
 
     def __init__(self, sample_addr, wechat_id):
         self.wechat_id = wechat_id
