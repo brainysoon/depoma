@@ -99,7 +99,7 @@ class QrScanDialog extends React.Component<Props> {
             if (!wechatLoginState) {
                 const interval = setInterval(() => {
                     checkWechatLoginState(serviceId)
-                }, 1000);
+                }, 500);
                 this.setState({interval});
             }
 
